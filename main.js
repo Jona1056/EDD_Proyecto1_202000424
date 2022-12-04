@@ -40,7 +40,10 @@ list.add(1231212413,"andres","andres20",112334,12331,false);
 
 
 function login(){
-    alert("este es un mensaje ")
+    
+    let contra = document.getElementById("password");
+
+    alert(contra.value)
 }
 
 
