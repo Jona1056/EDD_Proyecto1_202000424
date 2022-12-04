@@ -35,3 +35,16 @@ class listaenlazada{
 let list = new listaenlazada();
 list.add(123123,"Jonatan","jona",1234,123123123,true);
 list.add(1231212413,"andres","andres20",112334,12331,false);
+
+
+
+
+function login(){
+    alert("este es un mensaje ")
+}
+
+
+
+
+
+

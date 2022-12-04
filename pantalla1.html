@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FORMULARIO SOLO</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <h1 id="title">MUSTER CLOUD</h1>
-    <p id="description">Compartiendo alegría a través de la música</p>
-    <form id="survey-form" method="post">
-        <fieldset>
-          <label for="name" id="name-label">Name <input id="name" type="text" placeholder="Enter your name" required/></label>
-          <label for="email" id="email-label">Email <input id="email" type="email" placeholder="Enter your email" required /></label>
-          <!-- <label id="number-label" for="number">Age(optional) <input id="number" type="number" min="13" max="120" placeholder="Age"/></label>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORMULARIO SOLO</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <h1 id="title">MUSTER CLOUD</h1>
+  <p id="description">Compartiendo alegría a través de la música</p>
+  <form id="survey-form" >
+    <fieldset>
+      <label for="name" id="name-user">User Name <input id="name" type="text" placeholder="Escribe tu Usuario"
+          required /></label>
+      <label for="email" id="name-password">Password <input id="password" type="password" placeholder="Escribe tu contraseña"
+          required /></label>
+      <!-- <label id="number-label" for="number">Age(optional) <input id="number" type="number" min="13" max="120" placeholder="Age"/></label>
           <label for="dropdown">Which option best describes your current role?
             <select id="dropdown" >
               <option disabled selected>Select current role </option>
@@ -38,7 +42,7 @@
           </label>
  -->
 
-             <!-- <label for="drop">What is your favorite feature of freeCodeCamp?
+      <!-- <label for="drop">What is your favorite feature of freeCodeCamp?
             <select id="drop" >
               <option disabled selected>Select an option </option>
               <option>Challenges</option>
@@ -49,14 +53,14 @@
           </label>
           <label>What would you like to see improved? (Check all that apply)</label>
           <label><input type="checkbox" value="1" class="inline">Front-end Projects</label> -->
-              <label><input type="checkbox" value="2" class="inline">Back-end Projects </label>
-            <!-- <label for="area">
+      <label><input type="checkbox" value="2" class="inline">Back-end Projects </label>
+      <!-- <label for="area">
               Any comments or suggestions?
               <textarea id="area" name="comments"  rows="4" columns="30" placeholder="Enter your comment here"></textarea>
             </label> -->
-          <input id="submit" type="submit" value="Submit" />
+      <button type="button"  id="button1" onclick="login2323()">login</button>
 
 
-        </fieldset>
-  <body>
-    
+    </fieldset>
+
+    <body>
