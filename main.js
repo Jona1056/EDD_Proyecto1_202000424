@@ -1,3 +1,5 @@
+// --------------------------------------------------
+// LISTA ENLAZADA PARA CLIENTES Y ADMINISTRADORES
 class Cliente{
     constructor(dpi,name,username,password,phone,admin,next){
         this.dpi = dpi;
@@ -28,23 +30,77 @@ class listaenlazada{
 
         };
         this.size++;
+        alert(this.size);
+        
     };
     
 }
 
-let list = new listaenlazada();
-list.add(123123,"Jonatan","jona",1234,123123123,true);
-list.add(1231212413,"andres","andres20",112334,12331,false);
+
+//VARIABLES
+const admin = {"dpi":  2354168452525, "nombre_completo":  "WIlfred Perez", "nombre_usuario": "EDD", "correo":  "wilfred@gmail.com", "contrasenia":  "123", "telefono": "+502 (123) 123-4567"};
+let clientes = new listaenlazada();
+// ---------------------------------------------------------------
+
+
+
+
 
 
 
 
 function login(){
-    
-    let contra = document.getElementById("password");
 
-    alert(contra.value)
+    let user = document.getElementById("name1").value;
+    let password = document.getElementById("password1").value;
+
+    if (user == ""  || password==""){
+        swal("Oops!", "LLENE TODOS LOS CAMPOS", "error");
+    }else{
+        document.getElementById('LOGIN-1').style.display = "none";
+        document.getElementById('PANTALLA-USUARIO').style.display = "block";
+    }
+
+    
 }
+
+function gocreatecount(){
+
+    document.getElementById('LOGIN-1').style.display = "none";
+    document.getElementById('createAcount').style.display = "block";
+   
+}
+
+function crearCuenta(){
+    let usuario = document.getElementById("User-name").value;
+    let nombre = document.getElementById("User-nombre").value;
+    let dpi = document.getElementById("User-dpi").value;
+    let tel= document.getElementById("User-telefono").value;
+    let pass= document.getElementById("password2").value;
+    x = dpi.toString().length
+    if(usuario == "" || nombre == "" || dpi== "" || tel=="" ||pass==""){
+        swal("Oops!", "LLENE TODOS LOS CAMPOS", "error");
+    }else{
+    
+
+
+        if(x != 13){
+            swal("Oops!", "DPI INVALIDO", "error");
+        }
+        else{
+            clientes.add(dpi,nombre,usuario,pass,tel,false);
+           
+        }
+    }
+
+}
+
+function signOff(){
+    document.getElementById('LOGIN-1').style.display = "block";
+    document.getElementById('createAcount').style.display = "none";
+}
+
+
 
 
 
