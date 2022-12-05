@@ -149,6 +149,9 @@ input {
 #create1 {
   display: none;
 }
+#PANTALLA-ADMINISTRADOR{
+  display:none;
+}
 
 @media (max-width: 500px) {
   #create1 {
