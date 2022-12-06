@@ -33,15 +33,18 @@ class listaenlazada {
       let registro = this.head;
       while (registro.next) {
         registro = registro.next;
+        swal(
+          "GUARDADO",
+          "USUARIO CREADO CORRECTAMENTE" + "DPI: " + registro.dpi + 
+          + "NOMBRE "+ registro.username
+          + "password" + registro.password,
+          "success"
+        );
       }
       registro.next = Nodo;
     }
     this.size++;
-    swal(
-      "GUARDADO",
-      "USUARIO CREADO CORRECTAMENTE" + "USUARIO: " + this.size,
-      "success"
-    );
+   
   }
   login_us(user, passw) {
     if (!this.size) {
@@ -49,6 +52,7 @@ class listaenlazada {
     } else {
       let recorrido = this.head;
       while (recorrido) {
+        console.log(recorrido.username)
         if (user == recorrido.username && passw == recorrido.password) {
           document.getElementById("LOGIN-1").style.display = "none";
           document.getElementById("PANTALLA-USUARIO").style.display = "block";
@@ -63,14 +67,26 @@ class listaenlazada {
       }
     }
   }
-}
+  show(){
+    if(!this.size){
+     return "Hola"
+    }else{
+      let recorrido = This.head;
+      while (recorrido){
+        console.log(recorrido.username)
+      }
+    }
+  }
+  
+  }
+
 
 //VARIABLES
 const admin = {
   dpi: 2654568452521,
   nombre_completo: "Oscar Armin",
   nombre_usuario: "EDD",
-  contraseña: "123",
+  contrasenia: "123",
   telefono: "+502 (123) 123-4567",
 };
 let clientes = new listaenlazada();
@@ -85,7 +101,7 @@ function login() {
     swal("Oops!", "LLENE TODOS LOS CAMPOS", "error");
   } else {
     if (check) {
-      if (user == admin.nombre_usuario && password == admin.contraseña) {
+      if (user == admin.nombre_usuario && password == admin.contrasenia) {
         document.getElementById("LOGIN-1").style.display = "none";
         document.getElementById("PANTALLA-ADMINISTRADOR").style.display =
           "block";
@@ -142,7 +158,23 @@ function signoff1(){
 
 
 function cargar_usuarios(e){
+    var archivo = e.target.files[0];
     document.getElementById('UsuariosFile').files[0];
+    if (!archivo){
+      return;
+    }
+    let lector = new FileReader();
+    lector.onload = function(e){
+      let contenido = e.target.result;
+      const _clients = JSON.parse(contenido);
+
+      for(const i in _clients){
+        let client1 = _clients[i];
+        clientes.add(client1.dpi,client1.nombre_completo,client1.nombre_usuario,client1.contrasenia,client1.telefono,false);
+      }
+    }
+    lector.readAsText(archivo);
 
 }
 document.getElementById("UsuariosFile").addEventListener("change", cargar_usuarios, false);
+
