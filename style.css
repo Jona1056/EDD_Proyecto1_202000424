@@ -134,6 +134,121 @@ input {
   border-color: white;
   margin-left: 100px;
 }
+
+/* CSS PARA ADMINISTRADOR */
+#welcomeA{
+
+  margin-top: 2rem;
+  margin-left: 2rem;
+  font-weight: bold;
+  font-size: 2rem;
+
+}
+#CL{
+
+  float: left;
+  width: 30%;
+  margin-left: 10rem;
+
+}
+
+#posData{
+
+  margin-left: 0;
+  margin-top: 2rem;
+}
+
+#graphs{
+
+  clear: both;
+  margin-left: 5rem;
+  margin-top: 2rem;
+  float: left;
+
+
+}
+#CLB{
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+#showHashTableG{
+
+  width: 700px;
+  height: 500px;
+  margin-top:300px;
+  margin-left:400px;
+  overflow: auto;
+
+
+}
+#downloadGraphs{
+
+  margin-left: 30px;
+
+
+}
+#graphPeliculas{
+
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+}
+
+#graphClientes{
+
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+
+}
+#buttonGraph{
+  font-size: 1.5rem;
+
+}
+
+#graphActores{
+
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+
+}
+
+#graphCategorias{
+
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+
+}
+
+#showSimpleListG{
+
+  width: 10px;
+  height: 50px;
+  margin-left: 25rem;
+  margin-top: 10rem;
+  overflow: auto;
+  display: none;
+
+}
+#showBST{
+
+  width: 100rem;
+  height: 50rem;
+  margin-left: 25rem;
+  margin-top: 10rem;
+  overflow: auto;
+  display: none;
+
+}
+#showAVL{
+
+  width: 100rem;
+  height: 50rem;
+  margin-left: 25rem;
+  margin-top: 10rem;
+  overflow: auto;
+  display: none;
+
+}
 /* DIVS */
 
 #LOGIN-1 {

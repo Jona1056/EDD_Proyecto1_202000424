@@ -77,13 +77,114 @@
     <p id="description">USUARIO</p>
   </div>
 
-   <!-- VENTANA PARA EL ADMINISTRADOR-->
-   <div id="PANTALLA-ADMINISTRADOR">
-    <p id="description">ADMINISTRDOR</p>
-  </div>
+  <!-- VENTANA PARA EL ADMINISTRADOR-->
+  <div id="PANTALLA-ADMINISTRADOR">
 
-  <script src="/main.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <nav id="nav1" class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="logo">
+        <img src="/images/Logo3.png" alt="logo free lance" />
+      </div>
+      <a id="title1" class="navbar-brand" href="#" style="margin-left: 1.5rem; font-size: 2rem;">Muster Cloud</a>
+      <div class="collapse navbar-collapse" id="adminO">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a id="create-count" class="nav-link" href="#" onclick="signoff1()">CERRAR SESION</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <p id="welcomeA"></p>
+
+    <div id="posData">
+
+      <div id="CL">
+        <label for="formFile" class="form-label">
+          <h4>Cargar Usuarios</h4>
+        </label>
+        <input class="form-control" type="file" onclick="cargar_usuarios()" id="UsuariosFile">
+      </div>
+
+      <div id="CL">
+        <label for="formFile" class="form-label">
+          <h4>Cargar Artistas</h4>
+        </label>
+        <input class="form-control" type="file" id="customersFile">
+      </div>
+
+      <div id="CL">
+        <label for="formFile" class="form-label">
+          <h4>Cargar Canciones</h4>
+        </label>
+        <input class="form-control" type="file" id="actorsFile">
+      </div>
+
+      <div id="CL">
+        <label for="formFile" class="form-label">
+          <h4>Cargar Podcast</h4>
+        </label>
+        <input class="form-control" type="file" id="categoriesFile">
+      </div>
+      <div id="CL">
+        <label for="formFile" class="form-label">
+          <h4>Cargar Musica Programada</h4>
+        </label>
+        <input class="form-control" type="file" id="categoriesFile">
+      </div>
+
+    </div>
+
+    <div id="graphs">
+
+      <div id="CLB">
+        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showAVLTree()">Grafo Usuarios</button>
+      </div>
+
+      <div id="CLB">
+        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showSimpleList()">Grafo Artistas y Canciones</button>
+      </div>
+
+      <div id="CLB">
+        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showBSTree()">Grafo Musica</button>
+      </div>
+
+      <div id="CLB">
+        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showHashTable()">Grafo
+          Podcast</button>
+      </div>
+
+    </div>
+
+    <div id="showHashTableG" style="background-color: #D3D3D3;">
+
+    </div>
+
+    <div id="showSimpleListG" style="background-color: #D3D3D3;">
+
+    </div>
+
+    <div id="showBST" style="background-color: #D3D3D3;">
+
+    </div>
+    <br>
+    <br>
+
+  
+      <div id="downloadGraphs">
+
+        <button type="button" class="btn btn-dark" id="graphPeliculas" onclick="downloadMovies()">Descargar grafo
+          Usuarios</button>
+        <button type="button" class="btn btn-dark" id="graphClientes" onclick="downloadCustomers()">Descargar grafo
+          Artistas y Canciones</button>
+        <button type="button" class="btn btn-dark" id="graphActores" onclick="downloadActors()">Descargar grafo
+          Musica</button>
+        <button type="button" class="btn btn-dark" id="graphCategorias" onclick="downloadCategories()">Descargar grafo
+          Podcast</button>
+
+      </div>
+  
+
+    <script src="/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>

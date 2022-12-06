@@ -133,3 +133,16 @@ function signOff() {
   document.getElementById("LOGIN-1").style.display = "block";
   document.getElementById("createAcount").style.display = "none";
 }
+function signoff1(){
+    document.getElementById("name1").value = "";
+    document.getElementById("password1").value = "";
+    document.getElementById("LOGIN-1").style.display = "block";
+    document.getElementById("PANTALLA-ADMINISTRADOR").style.display = "none";
+}
+
+
+function cargar_usuarios(e){
+    document.getElementById('UsuariosFile').files[0];
+
+}
+document.getElementById("UsuariosFile").addEventListener("change", cargar_usuarios, false);
