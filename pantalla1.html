@@ -108,7 +108,7 @@
         <label for="formFile" class="form-label">
           <h4>Cargar Artistas</h4>
         </label>
-        <input class="form-control" type="file" id="customersFile">
+        <input class="form-control" type="file" onclick="cargar_artistas()" id="ArtistaFile">
       </div>
 
       <div id="CL">
@@ -165,6 +165,9 @@
     <div id="showBST" style="background-color: #D3D3D3;">
 
     </div>
+    <div id="showAVL" style="background-color: #D3D3D3;">
+
+    </div>
     <br>
     <br>
 
@@ -186,8 +189,8 @@
   <script src="//d3js.org/d3.v5.min.js"></script>
   <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
   <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
-  
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.js" integrity="sha512-8WAv/Z7UaDv0U1DCJ3W1oul76HOvq2/9mc+IbOZGsTj9iwZnnCXL/0FS6GQKNR++krdfVn9kuAAQ6v2DqZ9uEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="./jss/main.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

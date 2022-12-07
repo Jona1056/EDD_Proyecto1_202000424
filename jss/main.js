@@ -84,8 +84,9 @@ class listaenlazada {
     let current = this.head;
     let i = 1;
 
-    while (current != null) { // recorremos la lista hasta que sea null y agregamos un indicie cliente1
-      graphviz += "cliente" + i + '[label="' + current.name + '"];\n';
+    while (current != null) {
+      // recorremos la lista hasta que sea null y agregamos un indicie cliente1
+      graphviz += "cliente" + i + '[label="' + current.password + '"];\n';
 
       i++;
       current = current.next;
@@ -98,7 +99,8 @@ class listaenlazada {
     current = this.head;
     i = 1;
 
-    while (current != null) { // aqui de igual manera hasta que sea null y agragemos el indice
+    while (current != null) {
+      // aqui de igual manera hasta que sea null y agragemos el indice
       if (current.next != null) {
         graphviz += "cliente" + i + " -> cliente" + (i + 1) + "\n";
       }
@@ -118,7 +120,8 @@ class listaenlazada {
 
     i++;
 
-    while (current != null) { // en esta parte agreagamos el valor de cliente con la posicion i
+    while (current != null) {
+      // en esta parte agreagamos el valor de cliente con la posicion i
       graphviz += "; cliente" + i;
 
       i++;
@@ -143,8 +146,8 @@ class listaenlazada {
 }
 
 // LISTA PARA ARTISTAS
-class Artista{
-  constructor(name,age,country,next,prev){
+class Artista {
+  constructor(name, age, country, next, prev) {
     this.name = name;
     this.age = age;
     this.country = country;
@@ -152,37 +155,53 @@ class Artista{
     this.next = next;
     this.prev = prev;
 
- //
-  };
-};
-class listadobleartista{
-  constructor(){
+    //
+  }
+}
+class listadobleartista {
+  constructor() {
     this.head = null;
     this.tail = null;
     this.size = 0;
+  }
+  add(name1, age1, country1) {
+    const newNode = new Artista(name1, age1, country1, null, null, null);
+    if (this.head) {
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    } else {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    this.size++;
+    swal(
+      "GUARDADO",
+      "USUARIO CREADO CORRECTAMENTE" + " " + "artista numero" + this.size,
+
+      "success"
+    );
   }
 }
 
 //lista para canciones
 
-class Canciones{
-  contructor(artist,name,duration,gender,next,prev){
+class Canciones {
+  contructor(artist, name, duration, gender, next, prev) {
     this.artist = artist;
     this.name = name;
     this.duration = duration;
     this.gender = gender;
     this.next = next;
     this.prev = prev;
-
-  };
-};
-class listadobleCanciones{
-  constructor(){
+  }
+}
+class listadobleCanciones {
+  constructor() {
     this.head = null;
     this.tail = null;
     this.size = 0;
-  };
-
+  }
 }
 //VARIABLES
 const admin = {
@@ -193,6 +212,7 @@ const admin = {
   telefono: "+502 (123) 123-4567",
 };
 let clientes = new listaenlazada();
+let artistas = new listadobleartista();
 // ---------------------------------------------------------------
 
 function login() {
@@ -212,7 +232,8 @@ function login() {
         swal("Oops!", "ADMINISTRADOR NO ENCONTRADO", "error");
       }
     } else {
-      clientes.login_us(user, password);
+      digest = sha256(password);
+      clientes.login_us(user, digest);
     }
   }
 }
@@ -260,8 +281,9 @@ function signoff1() {
 }
 
 function cargar_usuarios(e) {
-  let archivo = e.target.files[0];
+  var archivo = e.target.files[0];
   document.getElementById("UsuariosFile").files[0];
+
   if (!archivo) {
     return;
   }
@@ -272,11 +294,12 @@ function cargar_usuarios(e) {
 
     for (const i in _clients) {
       let client1 = _clients[i];
+      digest = sha256(client1.contrasenia);
       clientes.add(
         client1.dpi,
         client1.nombre_completo,
         client1.nombre_usuario,
-        client1.contrasenia,
+        digest,
         client1.telefono,
         false
       );
@@ -288,6 +311,43 @@ document
   .getElementById("UsuariosFile")
   .addEventListener("change", cargar_usuarios, false);
 
+function cargar_artistas(e) {
+  var archivo = e.target.files[0];
+  document.getElementById("ArtistaFile").files[0];
+
+  if (!archivo) {
+    return;
+  }
+  let lector = new FileReader();
+
+  lector.onload = function (e) {
+    let contenido = e.target.result;
+   
+    const _artis = JSON.parse(contenido);
+  
+    for (const i in _artis) {
+      let artis1 = _artis[i];
+
+      artistas.add(artis1.name1, artis1.age1, artis1.country);
+    }
+  };
+  lector.readAsText(archivo);
+}
+document
+  .getElementById("ArtistaFile")
+  .addEventListener("change", cargar_artistas, false);
+
 function showSimpleList() {
   clientes.graph("showSimpleListG");
+  document.getElementById("showHashTableG").style.display = "none";
+  document.getElementById("showSimpleListG").style.display = "block";
+  document.getElementById("showBST").style.display = "none";
+  document.getElementById("showAVL").style.display = "none";
+}
+function showAVLTree() {
+  movies.graph("showAVL");
+  document.getElementById("showHashTableG").style.display = "none";
+  document.getElementById("showSimpleListG").style.display = "none";
+  document.getElementById("showBST").style.display = "none";
+  document.getElementById("showAVL").style.display = "block";
 }
