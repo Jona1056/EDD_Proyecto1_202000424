@@ -136,11 +136,11 @@
     <div id="graphs">
 
       <div id="CLB">
-        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showAVLTree()">Grafo Usuarios</button>
+        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showSimpleList()">Grafo Usuarios</button>
       </div>
 
       <div id="CLB">
-        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showSimpleList()">Grafo Artistas y Canciones</button>
+        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showAVLTree()">Grafo Artistas y Canciones</button>
       </div>
 
       <div id="CLB">
@@ -169,7 +169,7 @@
     <br>
 
   
-      <div id="downloadGraphs">
+      <div id="downloadGraphs" >
 
         <button type="button" class="btn btn-dark" id="graphPeliculas" onclick="downloadMovies()">Descargar grafo
           Usuarios</button>
@@ -181,10 +181,17 @@
           Podcast</button>
 
       </div>
+     
+  </div>
+  <script src="//d3js.org/d3.v5.min.js"></script>
+  <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+  <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+  
   
 
     <script src="./jss/main.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </body>
 
 </html>

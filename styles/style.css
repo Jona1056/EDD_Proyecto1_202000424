@@ -174,11 +174,12 @@ input {
 
 #showHashTableG{
 
-  width: 700px;
+  width: 900px;
   height: 500px;
   margin-top:300px;
   margin-left:400px;
   overflow: auto;
+  display:none;
 
 
 }
@@ -221,30 +222,30 @@ input {
 
 #showSimpleListG{
 
-  width: 10px;
-  height: 50px;
-  margin-left: 25rem;
-  margin-top: 10rem;
+  width: 900px;
+  height: 500px;
+  margin-top:300px;
+  margin-left:400px;
   overflow: auto;
-  display: none;
+  display: block;
 
 }
 #showBST{
 
-  width: 100rem;
-  height: 50rem;
-  margin-left: 25rem;
-  margin-top: 10rem;
+  width: 900px;
+  height: 500px;
+  margin-top:300px;
+  margin-left:400px;
   overflow: auto;
   display: none;
 
 }
 #showAVL{
 
-  width: 100rem;
-  height: 50rem;
-  margin-left: 25rem;
-  margin-top: 10rem;
+  width: 900px;
+  height: 500px;
+  margin-top:300px;
+  margin-left:400px;
   overflow: auto;
   display: none;
 

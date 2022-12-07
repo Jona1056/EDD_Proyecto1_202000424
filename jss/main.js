@@ -33,18 +33,16 @@ class listaenlazada {
       let registro = this.head;
       while (registro.next) {
         registro = registro.next;
-        swal(
-          "GUARDADO",
-          "USUARIO CREADO CORRECTAMENTE" + "DPI: " + registro.dpi + 
-          + "NOMBRE "+ registro.username
-          + "password" + registro.password,
-          "success"
-        );
       }
       registro.next = Nodo;
     }
     this.size++;
-   
+    swal(
+      "GUARDADO",
+      "USUARIO CREADO CORRECTAMENTE" + " " + "Usuario Numero" + this.size,
+
+      "success"
+    );
   }
   login_us(user, passw) {
     if (!this.size) {
@@ -52,7 +50,7 @@ class listaenlazada {
     } else {
       let recorrido = this.head;
       while (recorrido) {
-        console.log(recorrido.username)
+        console.log(recorrido.username);
         if (user == recorrido.username && passw == recorrido.password) {
           document.getElementById("LOGIN-1").style.display = "none";
           document.getElementById("PANTALLA-USUARIO").style.display = "block";
@@ -67,20 +65,125 @@ class listaenlazada {
       }
     }
   }
-  show(){
-    if(!this.size){
-     return "Hola"
-    }else{
-      let recorrido = This.head;
-      while (recorrido){
-        console.log(recorrido.username)
+  show() {
+    if (!this.size) {
+      return "Hola";
+    } else {
+      let recorrido = this.head;
+      while (recorrido) {
+        console.log(recorrido.username);
       }
     }
   }
-  
+  graph(idDiv) {
+    // creamos la variable del diagraph
+    let graphviz =
+      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "Clientes";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
+
+    //we create the customer nodes
+    let current = this.head;
+    let i = 1;
+
+    while (current != null) { // recorremos la lista hasta que sea null y agregamos un indicie cliente1
+      graphviz += "cliente" + i + '[label="' + current.name + '"];\n';
+
+      i++;
+      current = current.next;
+    }
+
+    graphviz += "\n";
+
+    //we point the customer nodes
+
+    current = this.head;
+    i = 1;
+
+    while (current != null) { // aqui de igual manera hasta que sea null y agragemos el indice
+      if (current.next != null) {
+        graphviz += "cliente" + i + " -> cliente" + (i + 1) + "\n";
+      }
+
+      i++;
+      current = current.next;
+    }
+
+    graphviz += "\n";
+
+    //we aling the nodes
+
+    current = this.head.next;
+    i = 1;
+
+    graphviz += "{rank = same; cliente" + i;
+
+    i++;
+
+    while (current != null) { // en esta parte agreagamos el valor de cliente con la posicion i
+      graphviz += "; cliente" + i;
+
+      i++;
+      current = current.next;
+    }
+
+    graphviz += "};\n\n}\n}";
+
+    console.log(graphviz);
+
+    let id = "#" + idDiv;
+
+    d3.select(id) //creamos con d3 el rendeDot y el paragrah
+      .graphviz()
+
+      .width(2000)
+      .height(1500)
+      .zoom(true)
+      .fit(true)
+      .renderDot(graphviz);
   }
+}
 
+// LISTA PARA ARTISTAS
+class Artista{
+  constructor(name,age,country,next,prev){
+    this.name = name;
+    this.age = age;
+    this.country = country;
+    this.lista = new listadobleCanciones();
+    this.next = next;
+    this.prev = prev;
 
+ //
+  };
+};
+class listadobleartista{
+  constructor(){
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+}
+
+//lista para canciones
+
+class Canciones{
+  contructor(artist,name,duration,gender,next,prev){
+    this.artist = artist;
+    this.name = name;
+    this.duration = duration;
+    this.gender = gender;
+    this.next = next;
+    this.prev = prev;
+
+  };
+};
+class listadobleCanciones{
+  constructor(){
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  };
+
+}
 //VARIABLES
 const admin = {
   dpi: 2654568452521,
@@ -149,32 +252,42 @@ function signOff() {
   document.getElementById("LOGIN-1").style.display = "block";
   document.getElementById("createAcount").style.display = "none";
 }
-function signoff1(){
-    document.getElementById("name1").value = "";
-    document.getElementById("password1").value = "";
-    document.getElementById("LOGIN-1").style.display = "block";
-    document.getElementById("PANTALLA-ADMINISTRADOR").style.display = "none";
+function signoff1() {
+  document.getElementById("name1").value = "";
+  document.getElementById("password1").value = "";
+  document.getElementById("LOGIN-1").style.display = "block";
+  document.getElementById("PANTALLA-ADMINISTRADOR").style.display = "none";
 }
 
+function cargar_usuarios(e) {
+  let archivo = e.target.files[0];
+  document.getElementById("UsuariosFile").files[0];
+  if (!archivo) {
+    return;
+  }
+  let lector = new FileReader();
+  lector.onload = function (e) {
+    let contenido = e.target.result;
+    const _clients = JSON.parse(contenido);
 
-function cargar_usuarios(e){
-    var archivo = e.target.files[0];
-    document.getElementById('UsuariosFile').files[0];
-    if (!archivo){
-      return;
+    for (const i in _clients) {
+      let client1 = _clients[i];
+      clientes.add(
+        client1.dpi,
+        client1.nombre_completo,
+        client1.nombre_usuario,
+        client1.contrasenia,
+        client1.telefono,
+        false
+      );
     }
-    let lector = new FileReader();
-    lector.onload = function(e){
-      let contenido = e.target.result;
-      const _clients = JSON.parse(contenido);
-
-      for(const i in _clients){
-        let client1 = _clients[i];
-        clientes.add(client1.dpi,client1.nombre_completo,client1.nombre_usuario,client1.contrasenia,client1.telefono,false);
-      }
-    }
-    lector.readAsText(archivo);
-
+  };
+  lector.readAsText(archivo);
 }
-document.getElementById("UsuariosFile").addEventListener("change", cargar_usuarios, false);
+document
+  .getElementById("UsuariosFile")
+  .addEventListener("change", cargar_usuarios, false);
 
+function showSimpleList() {
+  clientes.graph("showSimpleListG");
+}
