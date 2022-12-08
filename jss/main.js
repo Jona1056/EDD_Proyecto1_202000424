@@ -44,12 +44,48 @@ class listaenlazada {
       "success"
     );
   }
+  login_admin(user,pasw){
+    if (!this.size){
+      return "Hola"
+    }else{
+      let recorrido = this.head;
+   
+      while(recorrido){
+ 
+        if (recorrido.admin){
+        
+          if(user == recorrido.username && pasw == recorrido.password){
+            document.getElementById("LOGIN-1").style.display = "none";
+            document.getElementById("PANTALLA-ADMINISTRADOR").style.display =
+              "block";
+              return "dato encontrado"
+          }else{
+            recorrido=recorrido.next;
+          }
+          if(!recorrido){
+            swal("Error", "ADMINISTRADOR NO ENCONTRADO", "error");
+            return "error"
+            
+          }
+        }else{
+          if(!recorrido){
+            swal("Error", "ADMINISTRADOR NO ENCONTRADO", "error");
+            return "error"
+          }
+          recorrido = recorrido.next;
+        }
+      }
+
+   
+    }
+  }
   login_us(user, passw) {
     if (!this.size) {
       swal("Error", "NO HAY USUARIOS", "error");
     } else {
       let recorrido = this.head;
       while (recorrido) {
+       if(!recorrido.admin){
         console.log(recorrido.username);
         if (user == recorrido.username && passw == recorrido.password) {
           document.getElementById("LOGIN-1").style.display = "none";
@@ -62,7 +98,14 @@ class listaenlazada {
           swal("Error", "USUARIO NO ENCONTRADO", "error");
           return "error";
         }
+      }else{
+        if (!recorrido) {
+          swal("Error", "USUARIO NO ENCONTRADO", "error");
+          return "error";
+        }
+        recorrido = recorrido.next;
       }
+    }
     }
   }
   show() {
@@ -151,7 +194,7 @@ class Artista {
     this.name = name;
     this.age = age;
     this.country = country;
-    this.lista = new listadobleCanciones();
+    this.lista = new listadoblecanciones();
     this.next = next;
     this.prev = prev;
 
@@ -165,11 +208,14 @@ class listadobleartista {
     this.size = 0;
   }
   add(name1, age1, country1) {
-    const newNode = new Artista(name1, age1, country1, null, null, null);
+  
+    const newNode = new Artista(name1, age1, country1,null, null);
     if (this.head) {
+      
       newNode.next = this.head;
       this.head.prev = newNode;
       this.head = newNode;
+    
     } else {
       this.head = newNode;
       this.tail = newNode;
@@ -182,26 +228,237 @@ class listadobleartista {
       "success"
     );
   }
+
+  verificarlista() { 
+    if (this.head){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  graph(idDiv) {
+    // creamos la variable del diagraph
+    let graphviz =
+      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "Artistas";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
+
+    //we create the customer nodes
+    let current = this.head;
+    let i = 1;
+
+    while (current != null) {
+      // recorremos la lista hasta que sea null y agregamos un indicie cliente1
+      graphviz += "artista" + i + '[label="' + current.name+ '"];\n';
+
+      i++;
+      current = current.next;
+    }
+
+    graphviz += "\n";
+
+    //we point the customer nodes
+
+    current = this.head;
+    i = 1;
+
+    while (current != null) {
+      // aqui de igual manera hasta que sea null y agragemos el indice
+      if (current.next != null) {
+        graphviz += "artista" + i + " ->artista" + (i + 1) + "\n";
+        graphviz += "artista" + (i+1) +"-> artista" + i +"\n";
+      }
+
+      i++;
+      current = current.next;
+    }
+
+    graphviz += "\n";
+
+    //we aling the nodes
+
+ 
+
+    while (current != null) {
+      // en esta parte agreagamos el valor de cliente con la posicion i
+      graphviz += "; artista" + i;
+
+      i++;
+      current = current.next;
+    }
+
+    graphviz += "};\n\n}\n}";
+
+    console.log(graphviz);
+
+    let id = "#" + idDiv;
+
+    d3.select(id) //creamos con d3 el rendeDot y el paragrah
+      .graphviz()
+
+      .width(2000)
+      .height(1500)
+      .zoom(true)
+      .fit(true)
+      .renderDot(graphviz);
+  }
 }
 
 //lista para canciones
 
 class Canciones {
-  contructor(artist, name, duration, gender, next, prev) {
-    this.artist = artist;
+  constructor(artist, name, duration, gender, next, prev) {
+    this.artist =artist;
     this.name = name;
-    this.duration = duration;
-    this.gender = gender;
+    this.duration = duration;;
+    this.gender= gender;
     this.next = next;
     this.prev = prev;
+
+    //
   }
 }
-class listadobleCanciones {
+class listadoblecanciones {
   constructor() {
     this.head = null;
     this.tail = null;
     this.size = 0;
   }
+  add(name1, age1, country1,list) {
+   
+    const newNode = new Canciones(name1, age1, country1, list, null, null);
+ 
+    if(this.head){
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+      this.head.prev = this.tail ;
+      this.tail.next = this.head;
+      
+
+  
+
+    }else{
+      this.head = newNode;
+      this.tail = newNode;
+    
+    };
+    this.size++;
+    swal(
+      "GUARDADO",
+      "Cancion CREADO CORRECTAMENTE" + " " + "Cancion numero" + this.size,
+
+      "success"
+    );
+  } 
+  print(){
+    let current = this.head;
+    let result = "";
+    while(current){
+      if (!current.next){
+        result+=current.name ;
+        current = current.next;
+      }else{
+        result+=current.name + "<->";
+        current = current.next;
+      }
+
+ 
+
+    };
+    return result;
+  }
+  printcircular(){
+    let aux = this.head;
+    let aux2 = this.tail;
+
+    console.log("el primer dato de la lista es un" + aux.name + " y el ultimo dato de la lista es " + aux.prev.prev.name);
+
+    while(aux){
+        console.log(aux.name);
+        aux = aux.next;
+        if (aux == this.head){
+           break;
+        }
+    
+  }
+}
+  graph(idDiv){
+    // creamos la variable del diagraph
+    let graphviz =
+      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "Artistas";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
+
+    //we create the customer nodes
+    let aux = this.head;
+    let final = this.tail;
+    let i = 1;
+    while(aux){
+      graphviz += "artista" + i + '[label="' + aux.artist+ '"];\n';
+      aux = aux.next;
+      i++;
+      if (aux == this.head){
+        
+         break;
+      }
+    }
+
+
+
+    aux = this.head;
+
+    i = 1;
+    while(aux){
+        if(aux.next == this.head){
+          break;
+        }else{
+          graphviz += "artista" + i + " -> artista" + (i + 1) + "\n";
+        graphviz += "artista" + (i+1) +"-> artista" + i +"\n";
+       
+        aux = aux.next;
+        i++;
+        }
+        
+       
+      }
+  
+      graphviz += "\n";
+
+      aux = this.head.next;
+      i = 1;
+  
+      graphviz += "{rank = same; artista" + i;
+  
+      i++;
+      while (aux) {
+        // en esta parte agreagamos el valor de cliente con la posicion i
+        graphviz += "; artista" + i;
+  
+        i++;
+        aux = aux.next;
+        if(aux == this.head){
+          break;
+        }
+      }
+  
+      graphviz += "};\n\n}\n}";
+    
+    console.log(graphviz);
+
+    let id = "#" + idDiv;
+
+    d3.select(id) //creamos con d3 el rendeDot y el paragrah
+      .graphviz()
+
+      .width(2000)
+      .height(1500)
+      .zoom(true)
+      .fit(true)
+      .renderDot(graphviz);
+  
+
+  }
+  
+
+
+  
 }
 //VARIABLES
 const admin = {
@@ -213,6 +470,7 @@ const admin = {
 };
 let clientes = new listaenlazada();
 let artistas = new listadobleartista();
+let canciones = new listadoblecanciones();
 // ---------------------------------------------------------------
 
 function login() {
@@ -224,12 +482,14 @@ function login() {
     swal("Oops!", "LLENE TODOS LOS CAMPOS", "error");
   } else {
     if (check) {
+    
       if (user == admin.nombre_usuario && password == admin.contrasenia) {
         document.getElementById("LOGIN-1").style.display = "none";
         document.getElementById("PANTALLA-ADMINISTRADOR").style.display =
           "block";
       } else {
-        swal("Oops!", "ADMINISTRADOR NO ENCONTRADO", "error");
+        digest = sha256(password);
+        clientes.login_admin(user,digest);
       }
     } else {
       digest = sha256(password);
@@ -289,19 +549,21 @@ function cargar_usuarios(e) {
   }
   let lector = new FileReader();
   lector.onload = function (e) {
+    
     let contenido = e.target.result;
+
     const _clients = JSON.parse(contenido);
 
     for (const i in _clients) {
       let client1 = _clients[i];
-      digest = sha256(client1.contrasenia);
+      digest = sha256(client1.password);
       clientes.add(
         client1.dpi,
-        client1.nombre_completo,
-        client1.nombre_usuario,
+        client1.name,
+        client1.username,
         digest,
-        client1.telefono,
-        false
+        client1.phone,
+        client1.admin
       );
     }
   };
@@ -314,7 +576,7 @@ document
 function cargar_artistas(e) {
   var archivo = e.target.files[0];
   document.getElementById("ArtistaFile").files[0];
-
+ 
   if (!archivo) {
     return;
   }
@@ -328,24 +590,62 @@ function cargar_artistas(e) {
     for (const i in _artis) {
       let artis1 = _artis[i];
 
-      artistas.add(artis1.name1, artis1.age1, artis1.country);
+      artistas.add(artis1.name, artis1.age, artis1.country);
     }
   };
+ 
   lector.readAsText(archivo);
 }
 document
   .getElementById("ArtistaFile")
   .addEventListener("change", cargar_artistas, false);
 
+//creacion de canciones
+  function cargar_canciones(e) {
+    if(!artistas.verificarlista()){
+      swal("Oops!", "NO HAY ARTISTAS", "error");
+  
+    }else{
+      var archivo = e.target.files[0];
+      document.getElementById("CancionesFile").files[0];
+  
+  
+     if (!archivo) {
+      return;
+      }
+      let lector = new FileReader();
+
+      lector.onload = function (e) {
+      let contenido = e.target.result;
+
+      const _canc = JSON.parse(contenido);
+  
+      for (const i in _canc) {
+        let can1 = _canc[i];
+        
+        canciones.add(can1.artist, can1.name, can1.duration, can1.gender);
+      }
+    };
+    lector.readAsText(archivo);
+  }
+  }
+  document
+  .getElementById("CancionesFile")
+  .addEventListener("change", cargar_canciones, false);
+  
+
+
 function showSimpleList() {
   clientes.graph("showSimpleListG");
+  // canciones.graph("showSimpleListG")
   document.getElementById("showHashTableG").style.display = "none";
   document.getElementById("showSimpleListG").style.display = "block";
   document.getElementById("showBST").style.display = "none";
   document.getElementById("showAVL").style.display = "none";
 }
 function showAVLTree() {
-  movies.graph("showAVL");
+  artistas.graph("showAVL");
+  // canciones.graph("showAVL")
   document.getElementById("showHashTableG").style.display = "none";
   document.getElementById("showSimpleListG").style.display = "none";
   document.getElementById("showBST").style.display = "none";
