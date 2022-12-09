@@ -303,18 +303,18 @@ class listadobleartista {
       'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "MUSICA";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
 
     //we create the customer nodes
-    let current = this.head;
+    let current = this.head.next;
     let current3 = current.down;
       
     
     let i = 1;
 
-    while (current!= null) {
+    while (current3.next!= null) {
       // recorremos la lista hasta que sea null y agregamos un indicie cliente1
-      graphviz += "artista" + i + '[label="' + current.name+ '"];\n';
+      graphviz += "artista" + i + '[label="' + current3.name+ '"];\n';
 
       i++;
-      current = current.next;
+      current3 = current3.next;
     }
     // let x = 1000;
     // while (current != null) {
