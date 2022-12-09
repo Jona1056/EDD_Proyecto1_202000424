@@ -44,39 +44,34 @@ class listaenlazada {
       "success"
     );
   }
-  login_admin(user,pasw){
-    if (!this.size){
-      return "Hola"
-    }else{
+  login_admin(user, pasw) {
+    if (!this.size) {
+      return "Hola";
+    } else {
       let recorrido = this.head;
-   
-      while(recorrido){
- 
-        if (recorrido.admin){
-        
-          if(user == recorrido.username && pasw == recorrido.password){
+
+      while (recorrido) {
+        if (recorrido.admin) {
+          if (user == recorrido.username && pasw == recorrido.password) {
             document.getElementById("LOGIN-1").style.display = "none";
             document.getElementById("PANTALLA-ADMINISTRADOR").style.display =
               "block";
-              return "dato encontrado"
-          }else{
-            recorrido=recorrido.next;
+            return "dato encontrado";
+          } else {
+            recorrido = recorrido.next;
           }
-          if(!recorrido){
+          if (!recorrido) {
             swal("Error", "ADMINISTRADOR NO ENCONTRADO", "error");
-            return "error"
-            
+            return "error";
           }
-        }else{
-          if(!recorrido){
+        } else {
+          if (!recorrido) {
             swal("Error", "ADMINISTRADOR NO ENCONTRADO", "error");
-            return "error"
+            return "error";
           }
           recorrido = recorrido.next;
         }
       }
-
-   
     }
   }
   login_us(user, passw) {
@@ -85,27 +80,27 @@ class listaenlazada {
     } else {
       let recorrido = this.head;
       while (recorrido) {
-       if(!recorrido.admin){
-        console.log(recorrido.username);
-        if (user == recorrido.username && passw == recorrido.password) {
-          document.getElementById("LOGIN-1").style.display = "none";
-          document.getElementById("PANTALLA-USUARIO").style.display = "block";
-          return "dato enocntrado";
+        if (!recorrido.admin) {
+          console.log(recorrido.username);
+          if (user == recorrido.username && passw == recorrido.password) {
+            document.getElementById("LOGIN-1").style.display = "none";
+            document.getElementById("PANTALLA-USUARIO").style.display = "block";
+            return "dato enocntrado";
+          } else {
+            recorrido = recorrido.next;
+          }
+          if (!recorrido) {
+            swal("Error", "USUARIO NO ENCONTRADO", "error");
+            return "error";
+          }
         } else {
+          if (!recorrido) {
+            swal("Error", "USUARIO NO ENCONTRADO", "error");
+            return "error";
+          }
           recorrido = recorrido.next;
         }
-        if (!recorrido) {
-          swal("Error", "USUARIO NO ENCONTRADO", "error");
-          return "error";
-        }
-      }else{
-        if (!recorrido) {
-          swal("Error", "USUARIO NO ENCONTRADO", "error");
-          return "error";
-        }
-        recorrido = recorrido.next;
       }
-    }
     }
   }
   show() {
@@ -190,13 +185,25 @@ class listaenlazada {
 
 // LISTA PARA ARTISTAS
 class Artista {
-  constructor(name, age, country, next, prev) {
+  constructor(name, age, country) {
     this.name = name;
     this.age = age;
     this.country = country;
-    this.lista = new listadoblecanciones();
-    this.next = next;
-    this.prev = prev;
+    this.next = null;
+
+    this.prev = null;
+
+    //
+  }
+}
+class Cancion {
+  constructor(artist, name, duration, gender) {
+    this.artist = artist;
+    this.name = name;
+    this.duration = duration;
+    this.gender = gender;
+    this.next = null;
+    this.prev = null;
 
     //
   }
@@ -205,17 +212,34 @@ class listadobleartista {
   constructor() {
     this.head = null;
     this.tail = null;
+    this.down = null;
     this.size = 0;
+    this.size2 = 0;
+  }
+  addcanciones(artista1, name1, duration1, gender1) {
+    const newNode1 = new Cancion(artista1, name1, duration1, gender1);
+    if (this.down) {
+      newNode1.next = this.down;
+      this.down.prev = newNode1;
+      this.down = newNode1;
+    } else {
+      this.down = newNode1;
+    }
+
+    this.size2++;
+    swal(
+      "GUARDADO",
+      "cancion CREADO CORRECTAMENTE" + " " + "cancion numero" + this.size2,
+
+      "success"
+    );
   }
   add(name1, age1, country1) {
-  
-    const newNode = new Artista(name1, age1, country1,null, null);
+    const newNode = new Artista(name1, age1, country1);
     if (this.head) {
-      
       newNode.next = this.head;
       this.head.prev = newNode;
       this.head = newNode;
-    
     } else {
       this.head = newNode;
       this.tail = newNode;
@@ -229,60 +253,111 @@ class listadobleartista {
     );
   }
 
-  verificarlista() { 
-    if (this.head){
+  verificarlista() {
+    if (this.head) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
   graph(idDiv) {
     // creamos la variable del diagraph
+
     let graphviz =
-      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "Artistas";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
+      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "MUSICA";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
 
     //we create the customer nodes
     let current = this.head;
+    let current2 = this.down;
     let i = 1;
 
-    while (current != null) {
+    while (current2 != null) {
       // recorremos la lista hasta que sea null y agregamos un indicie cliente1
-      graphviz += "artista" + i + '[label="' + current.name+ '"];\n';
+      graphviz += "cancion" + i + '[label="' + current2.name + '"];\n';
 
       i++;
+      current2 = current2.next;
+    }
+    let x = 1000;
+    while (current != null) {
+      graphviz += "artista" + x + '[label="' + current.name + '"];\n';
+      x++;
       current = current.next;
     }
 
     graphviz += "\n";
 
-    //we point the customer nodes
-
+    current2 = this.down;
     current = this.head;
     i = 1;
-
+    x = 1000;
     while (current != null) {
-      // aqui de igual manera hasta que sea null y agragemos el indice
       if (current.next != null) {
-        graphviz += "artista" + i + " ->artista" + (i + 1) + "\n";
-        graphviz += "artista" + (i+1) +"-> artista" + i +"\n";
+        while (current2 != null) {
+          if (current2.next != null) {
+            if (current.name == current2.artist) {
+              graphviz += "artista" + x + " -> cancion" + i + "\n";
+            }
+          }
+          i++;
+          current2 = current2.next;
+        }
+        graphviz += "artista" + x + " -> artista" + (x+1) + "\n";
       }
-
-      i++;
+      
+      x++;
       current = current.next;
     }
+
+    //we point the customer nodes
+
+    // current2 = this.down;
+    // i = 1;
+
+    // while (current2 != null) {
+    //   // aqui de igual manera hasta que sea null y agragemos el indice
+    //   if (current2.next != null) {
+    //     graphviz += "cancion" + (i+1) + " -> cancion" + i + "\n";
+
+    //     graphviz += "cancion" + i + " -> cancion" + (i + 1) + "\n";
+
+    //   }
+
+    //   i++;
+    //   current2 = current2.next;
+    // }
+    // current = this.head;
+    // x = 1000;
+    // while (current != null) {
+    //   // aqui de igual manera hasta que sea null y agragemos el indice
+    //   if (current.next != null) {
+    //     graphviz += "artista" + (x+1) + " -> artista" + x + "\n";
+
+    //     graphviz += "artista" + x + " -> artista" + (x + 1) + "\n";
+
+    //   }
+
+    //   x++;
+    //   current = current.next;
+    // }
 
     graphviz += "\n";
 
     //we aling the nodes
 
- 
+    current2 = this.down.next;
+    i = 1;
 
-    while (current != null) {
+    graphviz += "{rank = same; cancion" + i;
+
+    i++;
+
+    while (current2 != null) {
       // en esta parte agreagamos el valor de cliente con la posicion i
-      graphviz += "; artista" + i;
+      graphviz += "; cancion" + i;
 
       i++;
-      current = current.next;
+      current2 = current2.next;
     }
 
     graphviz += "};\n\n}\n}";
@@ -304,162 +379,164 @@ class listadobleartista {
 
 //lista para canciones
 
-class Canciones {
-  constructor(artist, name, duration, gender, next, prev) {
-    this.artist =artist;
-    this.name = name;
-    this.duration = duration;;
-    this.gender= gender;
-    this.next = next;
-    this.prev = prev;
+// class Playlist {
+//   constructor(artist, name, duration, gender, next, prev) {
+//     this.artist =artist;
+//     this.name = name;
+//     this.duration = duration;;
+//     this.gender= gender;
+//     this.next = next;
+//     this.prev = prev;
 
-    //
-  }
-}
-class listadoblecanciones {
-  constructor() {
-    this.head = null;
-    this.tail = null;
-    this.size = 0;
-  }
-  add(name1, age1, country1,list) {
-   
-    const newNode = new Canciones(name1, age1, country1, list, null, null);
- 
-    if(this.head){
-      newNode.next = this.head;
-      this.head.prev = newNode;
-      this.head = newNode;
-      this.head.prev = this.tail ;
-      this.tail.next = this.head;
-      
+//     //
+//   }
 
-  
+// }
+// class listadobleplaylist {
+//   constructor() {
+//     this.head = null;
+//     this.tail = null;
+//     this.size = 0;
+//   }
 
-    }else{
-      this.head = newNode;
-      this.tail = newNode;
-    
-    };
-    this.size++;
-    swal(
-      "GUARDADO",
-      "Cancion CREADO CORRECTAMENTE" + " " + "Cancion numero" + this.size,
+//   add(name1, age1, country1,list) {
 
-      "success"
-    );
-  } 
-  print(){
-    let current = this.head;
-    let result = "";
-    while(current){
-      if (!current.next){
-        result+=current.name ;
-        current = current.next;
-      }else{
-        result+=current.name + "<->";
-        current = current.next;
-      }
+//     const newNode = new  Playlist(name1, age1, country1, list, null, null);
 
- 
+//     if(this.head){
+//       newNode.next = this.head;
+//       this.head.prev = newNode;
+//       this.head = newNode;
+//       this.head.prev = this.tail ;
+//       this.tail.next = this.head;
 
-    };
-    return result;
-  }
-  printcircular(){
-    let aux = this.head;
-    let aux2 = this.tail;
+//     }else{
+//       this.head = newNode;
+//       this.tail = newNode;
 
-    console.log("el primer dato de la lista es un" + aux.name + " y el ultimo dato de la lista es " + aux.prev.prev.name);
+//     };
+//     this.size++;
+//     swal(
+//       "GUARDADO",
+//       "Cancion CREADO CORRECTAMENTE" + " " + "Cancion numero" + this.size,
 
-    while(aux){
-        console.log(aux.name);
-        aux = aux.next;
-        if (aux == this.head){
-           break;
-        }
-    
-  }
-}
-  graph(idDiv){
-    // creamos la variable del diagraph
-    let graphviz =
-      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "Artistas";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
+//       "success"
+//     );
+//   }
+//   setartist(){
+//     return this.head;
+//   }
+//   print(){
+//     let current = this.head;
+//     let result = "";
+//     while(current){
+//       if (!current.next){
+//         result+=current.name ;
+//         current = current.next;
+//       }else{
+//         result+=current.name + "<->";
+//         current = current.next;
+//       }
 
-    //we create the customer nodes
-    let aux = this.head;
-    let final = this.tail;
-    let i = 1;
-    while(aux){
-      graphviz += "artista" + i + '[label="' + aux.artist+ '"];\n';
-      aux = aux.next;
-      i++;
-      if (aux == this.head){
-        
-         break;
-      }
-    }
+//     };
+//     return result;
+//   }
+//   printcircular(){
+//     let aux = this.head;
+//     let aux2 = this.tail;
 
+//     console.log("el primer dato de la lista es un" + aux.name + " y el ultimo dato de la lista es " + aux.prev.prev.name);
 
+//     while(aux){
+//         console.log(aux.name);
+//         aux = aux.next;
+//         if (aux == this.head){
+//            break;
+//         }
 
-    aux = this.head;
+//   }
+// }
+//   graph(idDiv){
+//     // creamos la variable del diagraph
 
-    i = 1;
-    while(aux){
-        if(aux.next == this.head){
-          break;
-        }else{
-          graphviz += "artista" + i + " -> artista" + (i + 1) + "\n";
-        graphviz += "artista" + (i+1) +"-> artista" + i +"\n";
-       
-        aux = aux.next;
-        i++;
-        }
-        
-       
-      }
-  
-      graphviz += "\n";
+//     let graphviz =
+//       'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "Artistas";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
 
-      aux = this.head.next;
-      i = 1;
-  
-      graphviz += "{rank = same; artista" + i;
-  
-      i++;
-      while (aux) {
-        // en esta parte agreagamos el valor de cliente con la posicion i
-        graphviz += "; artista" + i;
-  
-        i++;
-        aux = aux.next;
-        if(aux == this.head){
-          break;
-        }
-      }
-  
-      graphviz += "};\n\n}\n}";
-    
-    console.log(graphviz);
+//     //we create the customer nodes
+//     let aux = this.head;
+//     let final = this.tail;
+//     let i = 1;
+//     while(aux){
+//       graphviz += "artista" + i + '[label="' + aux.name+ '"];\n';
+//       aux = aux.next;
+//       i++;
+//       if (aux == this.head){
 
-    let id = "#" + idDiv;
+//          break;
+//       }
+//     }
 
-    d3.select(id) //creamos con d3 el rendeDot y el paragrah
-      .graphviz()
+//     aux = this.head;
 
-      .width(2000)
-      .height(1500)
-      .zoom(true)
-      .fit(true)
-      .renderDot(graphviz);
-  
+//     i = 1;
+//     while(aux){
+//         if(aux.next == this.head){
+//           break;
+//         }else{
+//           graphviz += "artista" + i + " -> artista" + (i + 1) + "\n";
+//         graphviz += "artista" + (i+1) +"-> artista" + i +"\n";
 
-  }
-  
+//         aux = aux.next;
+//         i++;
+//         }
 
+//       }
 
-  
-}
+//       graphviz += "\n";
+
+//       aux = this.head.next;
+//       i = 1;
+
+//       graphviz += "{rank = same; artista" + i;
+
+//       i++;
+//       while (aux) {
+//         // en esta parte agreagamos el valor de cliente con la posicion i
+//         graphviz += "; artista" + i;
+
+//         i++;
+//         aux = aux.next;
+//         if(aux == this.head){
+//           break;
+//         }
+//       }
+
+//       graphviz += "};\n\n}\n}";
+
+//     console.log(graphviz);
+
+//     let id = "#" + idDiv;
+
+//     d3.select(id) //creamos con d3 el rendeDot y el paragrah
+//       .graphviz()
+
+//       .width(2000)
+//       .height(1500)
+//       .zoom(true)
+//       .fit(true)
+//       .renderDot(graphviz);
+
+//   }
+//   verificar_lista1(){
+
+//     if(this.head){
+//       return true;
+//     }else{
+//      return false
+//     }
+//   }
+
+// }
 //VARIABLES
 const admin = {
   dpi: 2654568452521,
@@ -470,7 +547,7 @@ const admin = {
 };
 let clientes = new listaenlazada();
 let artistas = new listadobleartista();
-let canciones = new listadoblecanciones();
+// let canciones = new listadobleplaylist();
 // ---------------------------------------------------------------
 
 function login() {
@@ -482,14 +559,13 @@ function login() {
     swal("Oops!", "LLENE TODOS LOS CAMPOS", "error");
   } else {
     if (check) {
-    
       if (user == admin.nombre_usuario && password == admin.contrasenia) {
         document.getElementById("LOGIN-1").style.display = "none";
         document.getElementById("PANTALLA-ADMINISTRADOR").style.display =
           "block";
       } else {
         digest = sha256(password);
-        clientes.login_admin(user,digest);
+        clientes.login_admin(user, digest);
       }
     } else {
       digest = sha256(password);
@@ -549,7 +625,6 @@ function cargar_usuarios(e) {
   }
   let lector = new FileReader();
   lector.onload = function (e) {
-    
     let contenido = e.target.result;
 
     const _clients = JSON.parse(contenido);
@@ -576,7 +651,7 @@ document
 function cargar_artistas(e) {
   var archivo = e.target.files[0];
   document.getElementById("ArtistaFile").files[0];
- 
+
   if (!archivo) {
     return;
   }
@@ -584,16 +659,16 @@ function cargar_artistas(e) {
 
   lector.onload = function (e) {
     let contenido = e.target.result;
-   
+
     const _artis = JSON.parse(contenido);
-  
+
     for (const i in _artis) {
       let artis1 = _artis[i];
 
       artistas.add(artis1.name, artis1.age, artis1.country);
     }
   };
- 
+
   lector.readAsText(archivo);
 }
 document
@@ -601,39 +676,40 @@ document
   .addEventListener("change", cargar_artistas, false);
 
 //creacion de canciones
-  function cargar_canciones(e) {
-    if(!artistas.verificarlista()){
-      swal("Oops!", "NO HAY ARTISTAS", "error");
-  
-    }else{
-      var archivo = e.target.files[0];
-      document.getElementById("CancionesFile").files[0];
-  
-  
-     if (!archivo) {
-      return;
-      }
-      let lector = new FileReader();
+function cargar_canciones(e) {
+  if (!artistas.verificarlista()) {
+    swal("Oops!", "NO HAY ARTISTAS", "error");
+  } else {
+    var archivo = e.target.files[0];
+    document.getElementById("CancionesFile").files[0];
 
-      lector.onload = function (e) {
+    if (!archivo) {
+      return;
+    }
+    let lector = new FileReader();
+
+    lector.onload = function (e) {
       let contenido = e.target.result;
 
       const _canc = JSON.parse(contenido);
-  
+
       for (const i in _canc) {
         let can1 = _canc[i];
-        
-        canciones.add(can1.artist, can1.name, can1.duration, can1.gender);
+
+        artistas.addcanciones(
+          can1.artist,
+          can1.name,
+          can1.duration,
+          can1.gender
+        );
       }
     };
     lector.readAsText(archivo);
   }
-  }
-  document
+}
+document
   .getElementById("CancionesFile")
   .addEventListener("change", cargar_canciones, false);
-  
-
 
 function showSimpleList() {
   clientes.graph("showSimpleListG");
@@ -644,10 +720,15 @@ function showSimpleList() {
   document.getElementById("showAVL").style.display = "none";
 }
 function showAVLTree() {
+  // let ver = canciones.verificar_lista1();
+  // if (ver){
   artistas.graph("showAVL");
   // canciones.graph("showAVL")
   document.getElementById("showHashTableG").style.display = "none";
   document.getElementById("showSimpleListG").style.display = "none";
   document.getElementById("showBST").style.display = "none";
   document.getElementById("showAVL").style.display = "block";
+  // }else{
+  //   swal("Oops!", "CARGUE ARTISTAS Y CANCIONES", "error");
+  // }
 }
