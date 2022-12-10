@@ -283,7 +283,43 @@ input {
     text-decoration: none;
   }
 }
+/* 
+NAV DE USUARIO */
 
+#create{
+
+  font-weight: bold;
+
+  
+}
+
+#create2{
+  font-weight: bold;
+  margin-left: 410px;
+}
+
+#PANTALLA-MUSICA{
+  display:block;
+}
+
+#welcomeA{
+
+  margin-top: 2rem;
+  margin-left: 2rem;
+  font-weight: bold;
+  font-size: 2rem;
+
+}
+
+
+#libr{
+
+  margin: 2rem;
+  float: left;
+}
+#artis{
+  margin:2rem;
+}
 
 
 

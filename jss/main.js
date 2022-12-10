@@ -58,7 +58,7 @@ class listaenlazada {
               "block";
               let welcome = 'Bienvenido ' + recorrido.username
 
-              document.getElementById('welcomeA').innerHTML = welcome;
+              document.getElementById('welcomeb').innerHTML = welcome;
             return "dato encontrado";
             
           } else {
@@ -90,8 +90,9 @@ class listaenlazada {
             document.getElementById("LOGIN-1").style.display = "none";
             document.getElementById("PANTALLA-USUARIO").style.display = "block";
             let welcome = 'Bienvenido ' + recorrido.username
-
-            document.getElementById('welcomeA').innerHTML = welcome;
+       
+            document.getElementById('welcomea').innerHTML = welcome;
+            
             return "dato enocntrado";
           } else {
             recorrido = recorrido.next;
@@ -222,6 +223,22 @@ class listadobleartista {
     this.tail = null;
     this.size = 0;
     this.size2 = 0;
+  }
+  print_canciones(){
+
+    current = this.head;
+
+  
+  //    let i = 1;
+  //   while (i < 10) {
+  //     var newDiv = document.createElement("div");
+  //     newDiv.id = "span" + (i);
+  //    var respuesta = document.getElementById("PANTALLA-MUSICA");
+  //    respuesta.appendChild(newDiv);
+
+  //  document.getElementById('span' + (i)).innerHTML = i;
+  // i++;
+//  }
   }
   addcanciones(artista1, name1, duration1, gender1) {
    
@@ -660,7 +677,7 @@ function login() {
           "block";
           let welcome = 'Bienvenido ' + admin.nombre_completo
 
-          document.getElementById('welcomeA').innerHTML = welcome;
+          document.getElementById('welcomeb').innerHTML = welcome;
       } else {
         digest = sha256(password);
         clientes.login_admin(user, digest);
@@ -837,4 +854,9 @@ function showAVLTree() {
   // }else{
   //   swal("Oops!", "CARGUE ARTISTAS Y CANCIONES", "error");
   // }
+}
+
+function musica(){
+  document.getElementById("PANTALLA-MUSICA").style.display = "block";
+
 }
