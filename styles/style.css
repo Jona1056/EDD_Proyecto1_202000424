@@ -268,6 +268,9 @@ input {
 #PANTALLA-ADMINISTRADOR{
   display:none;
 }
+#PANTALLA-USUARIO{
+  display:none;
+}
 
 @media (max-width: 500px) {
   #create1 {
@@ -280,3 +283,9 @@ input {
     text-decoration: none;
   }
 }
+
+
+
+
+
+

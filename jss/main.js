@@ -56,7 +56,11 @@ class listaenlazada {
             document.getElementById("LOGIN-1").style.display = "none";
             document.getElementById("PANTALLA-ADMINISTRADOR").style.display =
               "block";
+              let welcome = 'Bienvenido ' + recorrido.username
+
+              document.getElementById('welcomeA').innerHTML = welcome;
             return "dato encontrado";
+            
           } else {
             recorrido = recorrido.next;
           }
@@ -85,6 +89,9 @@ class listaenlazada {
           if (user == recorrido.username && passw == recorrido.password) {
             document.getElementById("LOGIN-1").style.display = "none";
             document.getElementById("PANTALLA-USUARIO").style.display = "block";
+            let welcome = 'Bienvenido ' + recorrido.username
+
+            document.getElementById('welcomeA').innerHTML = welcome;
             return "dato enocntrado";
           } else {
             recorrido = recorrido.next;
@@ -651,6 +658,9 @@ function login() {
         document.getElementById("LOGIN-1").style.display = "none";
         document.getElementById("PANTALLA-ADMINISTRADOR").style.display =
           "block";
+          let welcome = 'Bienvenido ' + admin.nombre_completo
+
+          document.getElementById('welcomeA').innerHTML = welcome;
       } else {
         digest = sha256(password);
         clientes.login_admin(user, digest);
@@ -681,7 +691,8 @@ function crearCuenta() {
     if (x != 13) {
       swal("Oops!", "DPI INVALIDO", "error");
     } else {
-      clientes.add(dpi, nombre, usuario, pass, tel, false);
+      digest = sha256(pass);
+      clientes.add(dpi, nombre, usuario, digest, tel, false);
 
       document.getElementById("User-name").value = "";
       document.getElementById("User-nombre").value = "";
@@ -702,6 +713,13 @@ function signoff1() {
   document.getElementById("password1").value = "";
   document.getElementById("LOGIN-1").style.display = "block";
   document.getElementById("PANTALLA-ADMINISTRADOR").style.display = "none";
+}
+function signoff2(){
+  document.getElementById("name1").value = "";
+  document.getElementById("password1").value = "";
+  document.getElementById("LOGIN-1").style.display = "block";
+  document.getElementById("PANTALLA-USUARIO").style.display = "none";
+
 }
 
 function cargar_usuarios(e) {
