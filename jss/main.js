@@ -271,6 +271,17 @@ class listadobleartista {
     // );
   }
   add(name1, age1, country1) {
+
+    if(this.verificarArtista(name1)){
+      swal(
+        "GUARDADO",
+       " YA EXISTE EL ARTISTA",
+  
+        "success"
+      );
+    }else{
+
+    
     const newNode = new Artista(name1, age1, country1);
     if (this.head) {
       newNode.next = this.head;
@@ -288,6 +299,7 @@ class listadobleartista {
       "success"
     );
   }
+}
 
   verificarlista() {
     if (this.head) {
@@ -296,152 +308,135 @@ class listadobleartista {
       return false;
     }
   }
+  verificarArtista(nombre){
+    let current = this.head;
+    while(current != null) {
+      if(current.name == nombre){
+        return true;
+      }else{
+        return false;
+      }
+  }
+}
   graph(idDiv) {
     // creamos la variable del diagraph
 
     let graphviz =
-      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "MUSICA";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
+      'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "MUSICA";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 100;\n\n ';
 
     //we create the customer nodes
-    let current = this.head.next;
-    let current3 = current.down;
+    let current = this.head;
+
       
     
     let i = 1;
-
-    while (current3.next!= null) {
-      // recorremos la lista hasta que sea null y agregamos un indicie cliente1
-      graphviz += "artista" + i + '[label="' + current3.name+ '"];\n';
+    while (current!= null){
+      graphviz += "artista" + i + '[label="' + current.name+ '"];\n';
 
       i++;
-      current3 = current3.next;
+      current = current.next;
     }
-    // let x = 1000;
-    // while (current != null) {
-    //   graphviz += "artista" + x + '[label="' + current.name + '"];\n';
-    //   x++;
-    //   current = current.next;
-    // }
+    let x = 1000;
+    let current2 = this.head.down;
+    current= this.head;
+    while(current!=null){
+     
+      current2 = current.down;
+      if(current2 == null){
+        break;
+      }
+      while(current2.next!=null){
+        graphviz += "cancion" + x+ '[label="' + current2.name+ '"];\n';
 
-    // graphviz += "\n";
+        x++;
+        current2 = current2.next;
 
-    // current = this.head;
-    // x = 1000;
-    // current = this.head;
-    // down1 = current.down;
+    }
+    x = (x+100);
+    current = current.next;
+
     
-    //  i = 1;
-    //  while(cirr != null){
-    //   graphviz += "cancion" + i + " -> cancion" + (i + 1) + "\n";
-    //   i++;
-    // //   down1 = down1.next;
-    //  }
+  }
 
-    // while (current != null) {
-    //   if (current.next != null) {
-    //     graphviz += "artista" + x + " -> artista" + (x + 1) + "\n";
-    //     graphviz += "artista" + (x + 1) + " -> artista" + x + "\n";
-    //   }
-    //   x++;
-    //   current = current.next;
-    // }
-    // current = this.head;
-    // x = 1000;
-    // while (current != null) {
-    //   let i = 1;
-    //   current2 = this.down;
-    //   while (current2 != null) {
-    //     if (current2.artist == current.name) {
-    //       graphviz += "artista" + x + " -> cancion" + i + "\n";
-    //       graphviz += "cancion" + i + " -> artista" + x + "\n";
-    //       break;
-    //     }
-    //     i++;
-    //     current2 = current2.next;
-    //   }
-    //   x++;
-    //   current = current.next;
-    // }
-
-    // let current3 = this.down;
-    // i = 1;
-    // while (current3 != null) {
-    //   let k = 1;
-    //   let current2 = this.down;
-    //   let h = 1;
-    //   while (current2 != null) {
-
-    //     if (current3.artist == current2.artist) {
-    //       if(k == i){
-    //         let asdkf ="";
-    //       }else{
-           
-    //         graphviz += "cancion" + k + " -> cancion" + i + "\n";
-          
-          
-           
-        
-          
-
-        
-    //       }
-
-    //     }
-    //       k++;
-    //     current2 = current2.next;
-    //   }
+  x = 1000;
+  current2 = this.head.down;
+  current= this.head;
+  while(current!=null){
+    if(current!=null){
+    current2 = current.down;
   
-    //   i++;
-    //   current3 = current3.next;
-    // }
+    while(current2.next!=null){
+     
+       
+      if(current2.artist == current.name){
+        
+   
+        graphviz += "cancion" + x + " -> cancion" + (x + 1) + "\n";
+        graphviz += "cancion" + (x+1) + " -> cancion" + x + "\n";
+        x++;
+        current2 = current2.next;
+      
+        
+        
+      }else{
+    
+        break;
+      }
+  
+  
+}
 
-    // current = this.head;
-    // x = 1000;
-    // while (current != null) {
-    //   i = 1;
-    //   current2 = this.down;
-    //     while (current2) {
-    //       if(current2.next != null) {
-    //       if (current.name == current2.artist) {
-    //           graphviz += "artista" + x + " -> cancion" + i + "\n";
-    //           graphviz += "cancion" + i + " -> artista" + x + "\n";
-    //         }
-    //       i++;
-    //       current2 = current2.next;
-    //     }
-    //   }
+  }
+  x = (x+100);
+  current = current.next;
+}
+    
+    
 
-    //   x++;
-    //   current = current.next;
-    // }
+    i = 1;
+    current = this.head;
+    while (current != null) {
+      if (current.next != null) {
+        graphviz += "artista" + i + " -> artista" + (i + 1) + "\n";
+        graphviz += "artista" + (i + 1) + " -> artista" + i + "\n";
+      }
+      i++;
+      current = current.next;
+    }
 
-    // let current3 = this.down;
-    // let current4 = this.down;
-    // i = 1;
-    // let k = 1;
-    // while(current3){
-    //   i = 1;
-    //   current4 = this.down;
-    //   if(current3.next){
-    //   while(current4){
-    //     if(current4.next){
-    //     if(current3.artist == current4.artist){
+    i = 1;
+    x = 1000;
+    let y = 0;
+    current = this.head;
+    while(current != null){
+      current2 = current.down;
+      while(current2 != null){
+        if(current2.artist == current.name){
+          graphviz += "cancion" + x + " -> artista" + i + "\n";
+          graphviz += "artista" + i + " -> cancion" + x + "\n";
+          break;
+        }else{
+          break;
+        }
+    }
+    y = 0;
+      while(current2 != null){
+        if(current2.artist == current.name){
+          y++;
+          current2 = current2.next;
+        }else{
+          break;
+        }
+      }
+    
+    i++;
+    x = (x+y);
+    x = (x+100);
+    current = current.next;
+  }
 
-    //       graphviz += "cancion" + i + " -> cancion" + k + "\n";
-    //       graphviz += "cancion" + k + " -> cancion" + i + "\n";
-
-    //   }
-    // }
-    //   i++;
-    //   current4 = current4.next;
-    // }
-
-    //   }
-    //   k++;
-    //   current3 = current3.next;
-    // }
-    graphviz += "\n";
-    let current2 = this.head.next;
+ 
+    current2 = this.head.next;
     i = 1;
     graphviz += "{rank = same; artista" + i;
     i++;
@@ -452,20 +447,7 @@ class listadobleartista {
       i++;
       current2 = current2.next;
     }
-    // graphviz += "}"
-    // //
-    // current2 = this.down.next;
-    // i = 1;
-    // graphviz += "{rank = same; cancion" + i;
-    // i++;
-    // while (current2 != null) {
-    //   // en esta parte agreagamos el valor de cliente con la posicion i
-    //   graphviz += "; cancion" + i;
-
-    //   i++;
-    //   current2 = current2.next;
-    // }
-    // /////////
+    /////
 
     graphviz += "};\n\n}\n}";
     console.log(graphviz);
