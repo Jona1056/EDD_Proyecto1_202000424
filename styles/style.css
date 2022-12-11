@@ -297,10 +297,14 @@ NAV DE USUARIO */
   font-weight: bold;
   margin-left: 410px;
 }
-
+/* PANTALLA DE USUARIO */
 #PANTALLA-MUSICA{
   display:block;
 }
+#PANTALLA-ARTISTAS{
+  display:none;
+}
+/* ---------------------------------------------------------- */
 
 #welcomeA{
 

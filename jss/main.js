@@ -227,18 +227,9 @@ class listadobleartista {
     let current = this.head;
     let i = 1;
     if (current){
-   
-     
       document.getElementById("PANTALLA-MUSICA").innerHTML = "";
       while (current != null){
-   
-      
-   
-    
-      
         let current2 = current.down;
-   
-        
         if (current2 == null){
             break;
         }
@@ -254,6 +245,70 @@ class listadobleartista {
           <h4 class="card-title">${current2.name}  </h4>
           <button id="${current2.name}" class="btn btn-primary" onclick="agregarcancion('${current2.artist}','${current2.name}','${USUARIO}')" name=${current2.artist} >AGREGAR</button>
           </div>
+      </div>
+      `;   
+            current2 = current2.next;
+          }else{
+        
+            break;
+          }
+        }
+        i++;
+        current = current.next;
+   
+ 
+      }
+
+    }else{
+      swal("error","no hay canciones", "error")
+    }
+
+  }
+  printartistas(){
+    let current = this.head;
+    let i = 1;
+    if (current){
+   
+     
+      document.getElementById("PANTALLA-ARTISTAS").innerHTML = "";
+      while (current != null){
+        var newDiv = document.createElement("div");
+        newDiv.id = "span" + (i) ;
+        var respuesta = document.getElementById("PANTALLA-ARTISTAS");
+        respuesta.appendChild(newDiv);
+   
+    
+        var el = document.getElementById("span"+ (i));
+        el.setAttribute("style", "float:left; width:90%;border-color: white; border-radius: 50px;  border-style:solid;  margin-top: 10px;  margin-left: 50px; margin-right:50px;");
+        let current2 = current.down;
+        let doc = document.getElementById("span" + (i));
+        doc.innerHTML +=`
+
+        <div class="card" style="max-width: 13rem;" id="artis">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/7795/7795980.png">
+        <div class="card-body">
+          <h4 class="card-title">${current.name}</h4>
+        </div>
+      </div>
+      `;
+        
+        
+        
+        if (current2 == null){
+            break;
+        }
+        while(current2.next!=null){  
+          if(current2.artist == current.name){ 
+            let doc = document.getElementById("span" + (i));
+        doc.innerHTML +=`
+
+        <div class="card" style="max-width: 10rem; min-width:10; width:10rem;" id="libr">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6000/6000271.png">
+        <div class="card-body">
+        <h4 class="card-title">${current2.artist}  </h4>
+        <h4 class="card-title">${current2.name}  </h4>
+        <button id="${current2.name}" class="btn btn-primary" onclick="agregarcancion('${current2.artist}','${current2.name}','${USUARIO}')" name=${current2.artist} >AGREGAR</button>
+        </div>
       </div>
       `;
             
@@ -273,19 +328,6 @@ class listadobleartista {
       swal("error","no hay canciones", "error")
     }
 
-   
-
-  
-  //    let i = 1;
-  //   while (i < 10) {
-  //     var newDiv = document.createElement("div");
-  //     newDiv.id = "span" + (i);
-  //    var respuesta = document.getElementById("PANTALLA-MUSICA");
-  //    respuesta.appendChild(newDiv);
-
-  //  document.getElementById('span' + (i)).innerHTML = i;
-  // i++;
-//  }
   }
   addcanciones(artista1, name1, duration1, gender1) {
    
@@ -891,6 +933,15 @@ function showAVLTree() {
 
 function musica(){
   document.getElementById("PANTALLA-MUSICA").style.display = "block";
+  document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
+  artistas.print_canciones();
+
+}
+function artista(){
+  document.getElementById("PANTALLA-ARTISTAS").style.display = "block";
+  document.getElementById("PANTALLA-MUSICA").style.display = "none";
+  artistas.printartistas();
+  artistas.graph("PANTALLA-ARTISTAS");
 
 }
 
