@@ -102,58 +102,28 @@
         </ul>
       </div>
     </nav>
-        <!-- PANTALL USUARIO MUSICA -->
-        <div id="PANTALLA-MUSICA">
-          <div class="card" style="width: 16rem;" id="artis">
-            <img class="card-img-top" src="  https://cdn-icons-png.flaticon.com/512/2908/2908584.png" >
-            <div class="card-body">
-              <h4 class="card-title">MICHAEL JACKSON</h4>
-           
-            </div>
-          </div>
-         
-          <div class="card" style="width: 16rem;" id="libr">
-          
-            <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6000/6000271.png" >
-                <div class="card-body">
-                  <h4 class="card-title">${current.getData().nombre_libro}</h4>
-                  <button class="btn btn-primary">AGREAGAR</button>
-                </div>
-            </div>
-            <div class="card" style="width: 16rem;" id="libr">
-              <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6000/6000271.png" >
-                  <div class="card-body">
-                    <h4 class="card-title">${current.getData().nombre_libro}</h4>
-                    <button class="btn btn-primary">AGREAGAR</button>
-                  </div>
-              </div>
-          </div>
-          <div class="card" style="width: 16rem;" id="libr">
-            <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6000/6000271.png" >
-                <div class="card-body">
-                  <h4 class="card-title">${current.getData().nombre_libro}</h4>
-                  <button class="btn btn-primary">AGREAGAR</button>
-                </div>
-            </div>
-            <div class="card" style="width: 16rem;" id="libr">
-              <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6000/6000271.png" >
-                  <div class="card-body">
-                    <h4 class="card-title">${current.getData().nombre_libro}</h4>
-                    <button class="btn btn-primary">AGREAGAR</button>
-                  </div>
-              </div>
-              <div class="card" style="width: 16rem;" id="libr">
-                <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6000/6000271.png" >
-                    <div class="card-body">
-                      <h4 class="card-title">${current.getData().nombre_libro}</h4>
-                      <button class="btn btn-primary">AGREAGAR</button>
-                    </div>
-                </div>
+    <!-- PANTALL USUARIO MUSICA -->
+    <div id="PANTALLA-MUSICA">
+      <!-- <div class="card" style="width: 16rem;" id="artis">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/7795/7795980.png">
+        <div class="card-body">
+          <h4 class="card-title">"MICHAEL JACKSON"</h4>
         </div>
+      </div>
 
-          </div>
-      
-      <!-- --------------------------------------------------------------------- -->
+      <div class="card" style="width: 16rem;" id="libr">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6000/6000271.png">
+        <div class="card-body">
+          <h4 class="card-title">${current.getData().nombre_libro}</h4>
+          <button class="btn btn-primary">AGREAGAR</button>
+        </div>
+      </div> -->
+
+    </div>
+
+  </div>
+
+  <!-- --------------------------------------------------------------------- -->
 
 
 
@@ -175,10 +145,10 @@
       </div>
     </nav>
     <p id="welcomeb"></p>
-   
+
 
     <div id="posData">
-      
+
       <div id="CL">
         <label for="formFile" class="form-label">
           <h4>Cargar Usuarios</h4>
@@ -223,7 +193,8 @@
       </div>
 
       <div id="CLB">
-        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showAVLTree()">Grafo Artistas y Canciones</button>
+        <button type="button" class="btn btn-dark" id="buttonGraph" onclick="showAVLTree()">Grafo Artistas y
+          Canciones</button>
       </div>
 
       <div id="CLB">
@@ -254,29 +225,34 @@
     <br>
     <br>
 
-  
-      <div id="downloadGraphs" >
 
-        <button type="button" class="btn btn-dark" id="graphPeliculas" onclick="downloadMovies()">Descargar grafo
-          Usuarios</button>
-        <button type="button" class="btn btn-dark" id="graphClientes" onclick="downloadCustomers()">Descargar grafo
-          Artistas y Canciones</button>
-        <button type="button" class="btn btn-dark" id="graphActores" onclick="downloadActors()">Descargar grafo
-          Musica</button>
-        <button type="button" class="btn btn-dark" id="graphCategorias" onclick="downloadCategories()">Descargar grafo
-          Podcast</button>
+    <div id="downloadGraphs">
 
-      </div>
-     
+      <button type="button" class="btn btn-dark" id="graphPeliculas" onclick="downloadMovies()">Descargar grafo
+        Usuarios</button>
+      <button type="button" class="btn btn-dark" id="graphClientes" onclick="downloadCustomers()">Descargar grafo
+        Artistas y Canciones</button>
+      <button type="button" class="btn btn-dark" id="graphActores" onclick="downloadActors()">Descargar grafo
+        Musica</button>
+      <button type="button" class="btn btn-dark" id="graphCategorias" onclick="downloadCategories()">Descargar grafo
+        Podcast</button>
+
+    </div>
+
   </div>
   <script src="//d3js.org/d3.v5.min.js"></script>
   <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
   <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.js" integrity="sha512-8WAv/Z7UaDv0U1DCJ3W1oul76HOvq2/9mc+IbOZGsTj9iwZnnCXL/0FS6GQKNR++krdfVn9kuAAQ6v2DqZ9uEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"
+    integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.js"
+    integrity="sha512-8WAv/Z7UaDv0U1DCJ3W1oul76HOvq2/9mc+IbOZGsTj9iwZnnCXL/0FS6GQKNR++krdfVn9kuAAQ6v2DqZ9uEQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="./jss/main.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="./jss/main.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 </body>
 
