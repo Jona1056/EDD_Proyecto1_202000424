@@ -202,6 +202,24 @@ class Artista {
 
     //
   }
+  getData(){
+
+    return this.data;
+}
+
+getNext(){
+
+    return this.next;
+}
+ setData(data){
+
+        this.data = data;
+    }
+
+    setNext(next){
+
+        this.next = next;
+    }
 }
 class Cancion {
   constructor(artist, name, duration, gender) {
@@ -223,6 +241,36 @@ class listadobleartista {
     this.size = 0;
     this.size2 = 0;
   }
+  bubbleSort(){
+  
+    // let temp;
+    // let current2 = this.head;
+    //  for(let i = 0; i < this.size; i++){
+   
+    
+    //   let current = this.head;
+ 
+    //      while(current.next != null){
+          
+        
+    
+    //       current2 = current.next;
+    //          if(current.name > current2.name){
+    //             temp = current;
+
+    //              current= current2;
+    //              current2 = temp;
+          
+    //          }
+    //          current = current.next;
+    //         }
+    //  }
+   
+     swal("oops","artitas ordenado", "success")
+ 
+
+ }
+
   print_canciones(usuario){
     let current = this.head;
     let i = 1;
@@ -279,7 +327,7 @@ class listadobleartista {
    
     
         var el = document.getElementById("span"+ (i));
-        el.setAttribute("style", "float:left; width:90%;border-color: white; border-radius: 50px;  border-style:solid;  margin-top: 10px;  margin-left: 50px; margin-right:50px;");
+        el.setAttribute("style", "float:left; width:90%;border-color: black; border-radius: 50px;  border-style:solid;  margin-top: 10px;  margin-left: 50px; margin-right:50px;");
         let current2 = current.down;
         let doc = document.getElementById("span" + (i));
         doc.innerHTML +=`
@@ -811,6 +859,9 @@ function signoff2(){
   document.getElementById("password1").value = "";
   document.getElementById("LOGIN-1").style.display = "block";
   document.getElementById("PANTALLA-USUARIO").style.display = "none";
+  document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
+  document.getElementById("Ordenar").style.display = "none";
+  document.getElementById("formulario").style.display = "none";
 
 }
 
@@ -934,13 +985,18 @@ function showAVLTree() {
 function musica(){
   document.getElementById("PANTALLA-MUSICA").style.display = "block";
   document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
+  document.getElementById("Ordenar").style.display = "none";
+  document.getElementById("formulario").style.display = "none";
   artistas.print_canciones();
 
 }
 function artista(){
+  document.getElementById("Ordenar").style.display = "block";
+  document.getElementById("formulario").style.display = "block";
   document.getElementById("PANTALLA-ARTISTAS").style.display = "block";
   document.getElementById("PANTALLA-MUSICA").style.display = "none";
   artistas.printartistas();
+  
   artistas.graph("PANTALLA-ARTISTAS");
 
 }
@@ -948,4 +1004,24 @@ function artista(){
 function agregarcancion(artista,cancion,usuario){
 
   swal("error", "artista:" + artista + "Cancion:"+cancion + "usuario"+usuario, "sucess")
+}
+
+function bubbleSort(){
+  artistas.bubbleSort();
+  // artistas.printartistas();
+  // artistas.graph("PANTALLA-ARTISTAS");
+}
+
+function publicarcancion(){
+  let namecancion = document.getElementById("name-cancion").value;
+  let namealbum = document.getElementById("name-albun").value;
+  let duracion = document.getElementById("name-duracion").value;
+  let gen = document.getElementById("name-genero").value;
+  artistas.add(USUARIO,"x","x")
+  artistas.addcanciones(USUARIO,namecancion,duracion,gen)
+  artistas.printartistas();
+  
+  artistas.graph("PANTALLA-ARTISTAS");
+
+  
 }
