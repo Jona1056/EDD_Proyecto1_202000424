@@ -125,7 +125,7 @@ class listaenlazada {
     let graphviz =
       'digraph SimpleList{\nnode[shape= box, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "Clientes";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 30;\n\n ';
 
-    //we create the customer nodes
+
     let current = this.head;
     let i = 1;
 
@@ -327,7 +327,7 @@ class listadobleartista {
    
     
         var el = document.getElementById("span"+ (i));
-        el.setAttribute("style", "float:left; width:90%;border-color: black; border-radius: 50px;  border-style:solid;  margin-top: 10px;  margin-left: 50px; margin-right:50px;");
+        el.setAttribute("style", " overflow: auto; width: 900px; height: 500px; margin-top:300px;   margin-left:400px; border-color: black;   border-style:solid;  margin-top: 10px;  margin-left: 50px; margin-right:50px;");
         let current2 = current.down;
         let doc = document.getElementById("span" + (i));
         doc.innerHTML +=`
@@ -355,7 +355,7 @@ class listadobleartista {
         <div class="card-body">
         <h4 class="card-title">${current2.artist}  </h4>
         <h4 class="card-title">${current2.name}  </h4>
-        <button id="${current2.name}" class="btn btn-primary" onclick="agregarcancion('${current2.artist}','${current2.name}','${USUARIO}')" name=${current2.artist} >AGREGAR</button>
+        <button id="${current2.name}" class="btn btn-primary" onclick="agregarcancion('${current2.artist}','${current2.name}')" name=${current2.artist} >AGREGAR</button>
         </div>
       </div>
       `;
@@ -466,8 +466,6 @@ class listadobleartista {
     //we create the customer nodes
     let current = this.head;
 
-      
-    
     let i = 1;
     while (current!= null){
       graphviz += "artista" + i + '[label="' + current.name+ '"];\n';
@@ -607,48 +605,53 @@ class listadobleartista {
 // lista para canciones
 
 class Playlist {
-  constructor(artist, name, duration, gender, next, prev) {
+  constructor(artist, name,usuario) {
     this.artist =artist;
     this.name = name;
-    this.duration = duration;;
-    this.gender= gender;
-    this.next = next;
-    this.prev = prev;
+    this.usuario = usuario;
+   
+    this.next = null;
+    this.prev = null;
+  
 
     //
   }
 
 
 }
-class cancioneslista{
-  constructor(dato){
-    this.next = null;
-    this.prev = null;
-  }
-}
+
+
+
+
 class listadobleplaylist {
   constructor() {
     this.head = null;
     this.tail = null;
     this.size = 0;
+    
   }
+ 
 
-  add(name1, age1, country1,list) {
+  
 
-    const newNode = new  Playlist(name1, age1, country1, list, null, null);
+  add(usuario, name,artist) {
+ 
+
+    const newNode = new  Playlist(usuario,name,artist);
 
     if(this.head){
       newNode.next = this.head;
       this.head.prev = newNode;
       this.head = newNode;
-      this.head.prev = this.tail ;
-      this.tail.next = this.head;
+   
 
     }else{
       this.head = newNode;
       this.tail = newNode;
 
     };
+    this.head.prev = this.tail;
+    this.tail.next = this.head;
     this.size++;
     swal(
       "GUARDADO",
@@ -661,25 +664,90 @@ class listadobleplaylist {
     return this.head;
   }
   print(){
+
     let current = this.head;
-    let result = "";
-    while(current){
-      if (!current.next){
-        result+=current.name ;
+    let current6 = this.head;
+    let current7= this.head;
+    let i = 1;
+    if (current){
+     
+   
+     
+      document.getElementById("PANTALLA-PLAYLIST").innerHTML = "";
+      var newDiv = document.createElement("div");
+      newDiv.id = "spanA" + (i) ;
+      var respuesta = document.getElementById("PANTALLA-PLAYLIST");
+      respuesta.appendChild(newDiv);
+ 
+  
+    
+   
+   
+      let doc = document.getElementById("spanA" + (i));
+      while (current){
+      
+
+        if (current.artist == USUARIO){
+        
+ 
+        doc.innerHTML +=`
+
+        <div class="card"  id="artis">
+        <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+        <div class="card-body">
+        <h3 id=PRINCIPAL-CANCION class="card-title">${current.usuario}</h3>
+          <h4 class="card-title">${current.name}</h4>
+        </div>
+      </div>
+      `;
         current = current.next;
+        if(current ==this.head){
+          break;
+        }
+
+   
       }else{
-        result+=current.name + "<->";
         current = current.next;
+        if(current == this.head){
+          break;
+        }
+      }
       }
 
-    };
-    return result;
+    }else{
+      swal("error","no hay canciones", "error")
+    }
+
   }
+    // let current = this.head;
+  
+    // while(current){
+      
+    //   if (!current.next){
+    //     result+=current.name ;
+    //     current = current.next;
+    //     if (current == this.head){
+    //       break;
+    //     }
+    //   }else{
+    //     result+=current.next + "<->";
+    //     current = current.next;
+    //     if (current = this.head){
+    //       break;
+    //     }
+    //   }
+      
+
+    // };
+   
+    // swal("oops", "canciones" + result, "success");
+  
   printcircular(){
     let aux = this.head;
     let aux2 = this.tail;
 
     console.log("el primer dato de la lista es un" + aux.name + " y el ultimo dato de la lista es " + aux.prev.prev.name);
+    
 
     while(aux){
         console.log(aux.name);
@@ -698,10 +766,10 @@ class listadobleplaylist {
 
     //we create the customer nodes
     let aux = this.head;
-    let final = this.tail;
+
     let i = 1;
     while(aux){
-      graphviz += "artista" + i + '[label="' + aux.name+ '"];\n';
+      graphviz += "playlist" + i + '[label="' + aux.name+ '"];\n';
       aux = aux.next;
       i++;
       if (aux == this.head){
@@ -709,45 +777,61 @@ class listadobleplaylist {
          break;
       }
     }
-
     aux = this.head;
-
     i = 1;
     while(aux){
-        if(aux.next == this.head){
-          break;
-        }else{
-          graphviz += "artista" + i + " -> artista" + (i + 1) + "\n";
-        graphviz += "artista" + (i+1) +"-> artista" + i +"\n";
+      if(aux.next == this.head){
+        graphviz += "playlist" + (1)+ " -> playlist" + (i) + "\n";
+        graphviz += "playlist" + (i)+ " -> playlist" + (1) + "\n";
+        break;
+      }else{
+        graphviz += "playlist" + i + " -> playlist" + (i + 1) + "\n";
+       graphviz += "playlist" + (i+1) +"-> playlist" + i +"\n";
 
-        aux = aux.next;
-        i++;
-        }
-
+     aux = aux.next;
+     i++;
       }
+    }
+
+    // aux = this.head;
+
+    // i = 1;
+    // while(aux){
+    //     if(aux.next == this.head){
+    //       break;
+    //     }else{
+    //       graphviz += "artista" + i + " -> artista" + (i + 1) + "\n";
+    //     graphviz += "artista" + (i+1) +"-> artista" + i +"\n";
+
+    //     aux = aux.next;
+    //     i++;
+    //     }
+
+    //   }
 
       graphviz += "\n";
 
       aux = this.head.next;
       i = 1;
 
-      graphviz += "{rank = same; artista" + i;
+      graphviz += "{rank = same; playlist" + i;
 
       i++;
       while (aux) {
         // en esta parte agreagamos el valor de cliente con la posicion i
-        graphviz += "; artista" + i;
-
-        i++;
-        aux = aux.next;
         if(aux == this.head){
           break;
         }
+        graphviz += "; playlist" + i;
+
+        i++;
+        aux = aux.next;
+       
       }
 
       graphviz += "};\n\n}\n}";
 
-    console.log(graphviz);
+    // console.log(graphviz);
 
     let id = "#" + idDiv;
 
@@ -769,6 +853,86 @@ class listadobleplaylist {
      return false
     }
   }
+  moveizquierda(NOMBRE){
+    let current = this.head;
+    let current6 = this.head;
+    let current8 = this.head;
+    let current7= this.head;
+    let i = 1;
+    while(current){
+      if(current.usuario == NOMBRE){
+     
+        
+      
+      
+        document.getElementById("PANTALLA-PLAYLIST").innerHTML = "";
+        var newDiv = document.createElement("div");
+        newDiv.id = "spanA" + (i) ;
+        var respuesta = document.getElementById("PANTALLA-PLAYLIST");
+        respuesta.appendChild(newDiv);
+   
+    
+      
+     
+  
+        let doc = document.getElementById("spanA" + (i));
+        current6 = current.next;
+        
+        current8 = current6.next;
+        current7 = current8.next;
+        doc.innerHTML +=`
+
+        <div class="card"  id="artis">
+        <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+        <div class="card-body">
+        <h3 id=PRINCIPAL-CANCION class="card-title">${current6.usuario}</h3>
+          <h4 class="card-title">${current6.name}</h4>
+        </div>
+      </div>
+      `;
+      doc.innerHTML +=`
+
+      <div class="card"  id="artis">
+      <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+      <div class="card-body">
+      <h3 class="card-title">${current8.usuario}</h3>
+        <h4 class="card-title">${current8.name}</h4>
+      </div>
+    </div>
+    `;
+  
+        doc.innerHTML +=`
+          
+        <div class="card"  id="artis">
+        <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+        <div class="card-body">
+          <h3  class="card-title">${current7.usuario}</h3>
+          <h4 class="card-title">${current7.name}</h4>
+        </div>
+      </div>
+      `;
+   
+ 
+      
+      
+  
+  
+      
+    
+    
+    break;
+      }else{
+        current = current.next;
+        if(current = this.head){
+          break;
+        }
+      }
+      
+    }
+
+
+
+  }
 
 }
 //VARIABLES
@@ -782,6 +946,8 @@ const admin = {
 let clientes = new listaenlazada();
 let artistas = new listadobleartista();
 var USUARIO = ""
+var result = "";
+let playlist1 = new listadobleplaylist();
 // let canciones = new listadobleplaylist();
 // ---------------------------------------------------------------
 
@@ -862,6 +1028,7 @@ function signoff2(){
   document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
   document.getElementById("Ordenar").style.display = "none";
   document.getElementById("formulario").style.display = "none";
+  document.getElementById("showSimpleListG1").style.display = "none";
 
 }
 
@@ -987,6 +1154,11 @@ function musica(){
   document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
   document.getElementById("Ordenar").style.display = "none";
   document.getElementById("formulario").style.display = "none";
+  document.getElementById("PANTALLA-PLAYLIST").style.display = "none";
+  document.getElementById("Botones-playlist").style.display = "none";
+  document.getElementById("showSimpleListG1").style.display = "none";
+  document.getElementById("showSimpleListG2").style.display = "none";
+
   artistas.print_canciones();
 
 }
@@ -995,15 +1167,19 @@ function artista(){
   document.getElementById("formulario").style.display = "block";
   document.getElementById("PANTALLA-ARTISTAS").style.display = "block";
   document.getElementById("PANTALLA-MUSICA").style.display = "none";
+  document.getElementById("PANTALLA-PLAYLIST").style.display = "none";
+  document.getElementById("Botones-playlist").style.display = "none";
+  document.getElementById("showSimpleListG1").style.display = "block";
+  document.getElementById("showSimpleListG2").style.display = "none";
   artistas.printartistas();
   
-  artistas.graph("PANTALLA-ARTISTAS");
+  artistas.graph("showSimpleListG1");
 
 }
 
-function agregarcancion(artista,cancion,usuario){
+function agregarcancion(artista,cancion,al){
+  playlist1.add( USUARIO,cancion,artista)
 
-  swal("error", "artista:" + artista + "Cancion:"+cancion + "usuario"+usuario, "sucess")
 }
 
 function bubbleSort(){
@@ -1021,7 +1197,31 @@ function publicarcancion(){
   artistas.addcanciones(USUARIO,namecancion,duracion,gen)
   artistas.printartistas();
   
-  artistas.graph("PANTALLA-ARTISTAS");
+  artistas.graph("showSimpleListG1");
+  document.getElementById("name-cancion").value ="";
+  document.getElementById("name-albun").value ="";
+ document.getElementById("name-duracion").value ="";
+   document.getElementById("name-genero").value="";
 
   
+}
+function playlist(){
+  document.getElementById("PANTALLA-PLAYLIST").style.display = "block";
+  document.getElementById("Botones-playlist").style.display = "block";
+  document.getElementById("Ordenar").style.display = "none";
+  document.getElementById("formulario").style.display = "none";
+  document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
+  document.getElementById("PANTALLA-MUSICA").style.display = "none";
+  document.getElementById("showSimpleListG1").style.display = "none";
+  document.getElementById("showSimpleListG2").style.display = "block";
+  
+  playlist1.print();
+  playlist1.graph("showSimpleListG2")
+
+}
+
+function goizquierda(){
+  let cancion = document.getElementById("PRINCIPAL-CANCION").innerHTML;
+  // swal("oops","hola"+ ""+ cancion, "sucess")
+  playlist1.moveizquierda(cancion);
 }

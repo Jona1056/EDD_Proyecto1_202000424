@@ -95,9 +95,8 @@ input {
   font-size: 1.1rem;
   background-color: rgba(136, 52, 206, 0.7);
   border-color: white;
-  color:black;
+  color: black;
   min-width: 200px;
-  
 }
 
 /* CSS PARA CREAR USUARIO */
@@ -127,7 +126,6 @@ input {
   font-size: 1.1rem;
   background-color: rgba(136, 52, 206, 0.7);
   border-color: white;
-  
 }
 #submit2 {
   font-size: 1.1rem;
@@ -137,129 +135,113 @@ input {
 }
 
 /* CSS PARA ADMINISTRADOR */
-#welcomeA{
-
+#welcomeA {
   margin-top: 2rem;
   margin-left: 2rem;
   font-weight: bold;
   font-size: 2rem;
-
 }
-#CL{
-
+#CL {
   float: left;
   width: 30%;
   margin-left: 10rem;
-
 }
 
-#posData{
-
+#posData {
   margin-left: 0;
   margin-top: 2rem;
 }
 
-#graphs{
-
+#graphs {
   clear: both;
   margin-left: 5rem;
   margin-top: 2rem;
   float: left;
-
-
 }
-#CLB{
+#CLB {
   margin-bottom: 20px;
   font-size: 1.5rem;
 }
 
-#showHashTableG{
-
+#showHashTableG {
   width: 900px;
   height: 500px;
-  margin-top:300px;
-  margin-left:400px;
+  margin-top: 300px;
+  margin-left: 400px;
   overflow: auto;
-  display:none;
-
-
+  display: none;
 }
-#downloadGraphs{
-
+#downloadGraphs {
   margin-left: 30px;
-
-
 }
-#graphPeliculas{
-
+#graphPeliculas {
   font-size: 1.5rem;
   margin-bottom: 50px;
 }
 
-#graphClientes{
-
+#graphClientes {
   font-size: 1.5rem;
   margin-bottom: 50px;
-
 }
-#buttonGraph{
+#buttonGraph {
   font-size: 1.5rem;
-
 }
 
-#graphActores{
-
+#graphActores {
   font-size: 1.5rem;
   margin-bottom: 50px;
-
 }
 
-#graphCategorias{
-
+#graphCategorias {
   font-size: 1.5rem;
   margin-bottom: 50px;
-
 }
 
-#showSimpleListG{
-
+#showSimpleListG {
   width: 900px;
   height: 500px;
-  margin-top:300px;
-  margin-left:400px;
+  margin-top: 300px;
+  margin-left: 400px;
   overflow: auto;
   display: block;
-
 }
-#showSimpleListG1{
-
-  width: 900px;
-  height: 500px;
-  margin-top:300px;
-  margin-left:400px;
-  overflow: auto;
-  display: block;
-
-}
-#showBST{
-
-  width: 900px;
-  height: 500px;
-  margin-top:300px;
-  margin-left:400px;
+#showSimpleListG1 {
+  width: 800px;
+  height: 300px;
+  margin-top: 200px;
+  margin-left: 500px;
   overflow: auto;
   display: none;
-
 }
-#showAVL{
+#showSimpleListG2 {
+ 
+  width: 500px;
+  height: 400px;
+  margin-left: 450px;
+  margin-top: 10px;
 
-  width: 900px;
-  height: 500px;
-  margin-top:300px;
-  margin-left:400px;
+
+  
+
+
   overflow: auto;
   display: none;
-
+}
+#showBST {
+  width: 900px;
+  height: 500px;
+  margin-top: 300px;
+  margin-left: 400px;
+  overflow: auto;
+  display: none;
+}
+#showAVL {
+  width: 900px;
+  height: 500px;
+  margin-top: 300px;
+  margin-left: 400px;
+  overflow: auto;
+  display: none;
 }
 /* DIVS */
 
@@ -276,11 +258,11 @@ input {
 #create1 {
   display: none;
 }
-#PANTALLA-ADMINISTRADOR{
-  display:none;
+#PANTALLA-ADMINISTRADOR {
+  display: none;
 }
-#PANTALLA-USUARIO{
-  display:none;
+#PANTALLA-USUARIO {
+  display: none;
 }
 
 @media (max-width: 500px) {
@@ -297,76 +279,61 @@ input {
 /* 
 NAV DE USUARIO */
 
-#create{
-
+#create {
   font-weight: bold;
-
-  
 }
 
-#create2{
+#create2 {
   font-weight: bold;
   margin-left: 410px;
 }
 /* PANTALLA DE USUARIO */
-#PANTALLA-MUSICA{
-  display:block;
+#PANTALLA-MUSICA {
+  display: block;
 }
-#PANTALLA-ARTISTAS{
-  display:none;
+#PANTALLA-ARTISTAS {
+  display: none;
 }
 /* ---------------------------------------------------------- */
 
-#welcomeA{
-
+#welcomeA {
   margin-top: 2rem;
   margin-left: 2rem;
   font-weight: bold;
   font-size: 2rem;
-
 }
 
-
-#libr{
-
+#libr {
   margin: 2rem;
- 
-  float:left;
-
-
-
-}
-#artis{
-
-  margin:2rem;
-  float:left;
- 
- 
-}
-
-#Ordenar{
-  display:none;
-  margin-top: 30px;
-  margin-left:300px;
   float: left;
-  border-color: black; border-radius: 3px;  border-style:solid;
+}
+#artis {
+  margin: 2rem;
 }
 
+#Ordenar {
+  display: none;
+  margin-top: 30px;
+  margin-left: 300px;
+  float: left;
+  border-color: black;
+  border-radius: 3px;
+  border-style: solid;
+}
 
-
-@import url('https://rsms.me/inter/inter-ui.css');
+@import url("https://rsms.me/inter/inter-ui.css");
 ::selection {
-  background: #2D2F36;
+  background: #2d2f36;
 }
 ::-webkit-selection {
-  background: #2D2F36;
+  background: #2d2f36;
 }
 ::-moz-selection {
-  background: #2D2F36;
+  background: #2d2f36;
 }
 body {
   background: rgb(226, 216, 216);
-  font-family: 'Inter UI', sans-serif;
+  font-family: "Inter UI", sans-serif;
   margin: 0;
   padding: 20px;
 }
@@ -414,7 +381,7 @@ body {
     max-height: 270px;
   }
 }
- .login {
+.login {
   font-size: 50px;
   font-weight: 900;
   margin: 50px 40px 40px;
@@ -426,9 +393,9 @@ body {
   margin: 40px;
 }
 .right {
-  background: #474A59;
-  box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
-  color: #F1F1F2;
+  background: #474a59;
+  box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
+  color: #f1f1f2;
   position: relative;
   width: 50%;
 }
@@ -462,8 +429,8 @@ body {
   margin-top: 20px;
   margin-bottom: 5px;
 } */
-h4{
-  color:black;
+h4 {
+  color: black;
 }
 input {
   background: transparent;
@@ -490,15 +457,51 @@ input {
   color: #d0d0d2;
 } */
 
-
- 
-
-
-
-#formulario{
-
+#formulario {
   margin-top: 30px;
   margin-left: 100px;
   float: left;
-  display:none;
+  display: none;
+}
+
+#PANTALLA-PLAYLIST {
+  display: none;
+}
+
+#Botones-playlist {
+  display: none;
+  margin-top: 500px;
+  margin-left: 570px;
+}
+#izquierdo {
+  width: 100px;
+}
+#DERECHO {
+  width: 100px;
+}
+
+#register1 {
+  margin-bottom: 10px;
+}
+
+#spanA1 {
+
+  float:left;
+  width: 1300px;
+  border-color: black;
+  border-radius: 50px;
+  border-style: solid;
+  margin-top: 10px;
+  overflow:auto;
+  margin-bottom: 10px;
+  
+}
+
+#spanA1 > #artis{
+  float:left;
+  width: 350px;
+  
+
+
+
 }
