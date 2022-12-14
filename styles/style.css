@@ -505,3 +505,52 @@ input {
 
 
 }
+
+
+ESTILOS PANTALLA AMIGOS
+
+
+#PANTALLA-USUARIOS{
+  display: none;
+}
+#PANTALLA-AMIGOS{
+  display:none;
+}
+
+#grafoamigos{
+  display:none
+}
+
+
+/* CSS PARA USUARIOS */
+#artis2{
+  margin-top: 10px;
+  margin-left:5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  display:flex;
+
+}
+
+#PANTALLA-USUARIOS > #spanAB1{
+
+  margin-top: 10px;
+  border: #2d2f36;
+  border-style: solid;
+
+
+ 
+  float:left;
+ 
+  display:flex;
+
+
+  flex-direction:row;
+
+
+
+  
+
+
+
+}

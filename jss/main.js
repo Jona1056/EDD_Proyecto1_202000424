@@ -17,6 +17,41 @@ class listaenlazada {
     this.head = null;
     this.size = 0;
   }
+  mostrarusuarios(){
+    let current = this.head;
+    let i = 1;
+    if(current){
+      document.getElementById("PANTALLA-USUARIOS").innerHTML = "";
+      var newDiv = document.createElement("div");
+      newDiv.id = "spanAB" + (i) ;
+      var respuesta = document.getElementById("PANTALLA-USUARIOS");
+      respuesta.appendChild(newDiv);
+      let doc = document.getElementById("spanAB" + (i));
+      while(current ){
+        doc.innerHTML +=`
+
+        <div class="card"  id="artis2">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/560/560216.png">
+        <div class="card-body" >
+        <h3  class="card-title">${current.name}</h3>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">Numero: ${current.phone}</li>
+        <li class="list-group-item">Username: ${current.username}</li>
+        <li class="list-group-item">Dpi: ${current.dpi}</li>
+      </ul>
+        </div>
+        <button id="${current.username}" class="btn btn-primary" onclick="agregarusuario('${current.name}','${current.username}','${USUARIO}')"  >AGREGAR</button>
+        <button id="${current.username}" class="btn btn-danger" onclick="bloquearusuario('${current.name}','${current.username}','${USUARIO}')"  >BLOQUEAR</button>
+      </div>
+      `;
+        current = current.next;
+      }
+
+    }else{
+      swal("erro", "No hay usuarios","error")
+    }
+
+  }
   add(dpi1, name1, username1, password1, phone1, admin1) {
     const Nodo = new Cliente(
       dpi1,
@@ -683,6 +718,7 @@ class Playlist {
   
   }
 }
+let constantemusica = 0
 class listadobleplaylist {
   constructor() {
     this.head = null;
@@ -691,13 +727,45 @@ class listadobleplaylist {
     this.size2 = 0;
     
   }
+  verificarcancion(cancion2){
+    let current = this.head;
+    while(current){
+      if(current.usuario == USUARIO){
+        let current2 = this.head.list2;
+        let current3 = current2.head;
+        while(current3){
+          if (current3.cancion == cancion2){
+            return true;
+          }else{
+         
+          }
+          current3 = current3.next;
+          if(current3 == this.head.list2.head){
+            return false;
+          }
+         
+        }
+      }
+      current = current.next;
+    }
+  }
+  
 
     addcanciones(artista1,cancion2){
+    if (this.verificarcancion(cancion2)){
+      swal(
+        "GUARDADO",
+       "LA CANCION YA EXISTE EN LA PLAYLIST",
+  
+        "error"
+      );
+      }else{
 
     let current = this.head;
     while(current != null){
      
      if(current.usuario== USUARIO){
+        
 
        var newNode= new cancion1(artista1,cancion2);
        if(current.list2.head){
@@ -725,6 +793,7 @@ class listadobleplaylist {
 
 
  }
+}
 }
   
   addUsuario(){
@@ -825,8 +894,8 @@ class listadobleplaylist {
           <div class="card"  id="artis">
           <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
           <div class="card-body">
-          <h3 id=PRINCIPAL-CANCION class="card-title">${current2.artista2}</h3>
-            <h4 class="card-title">${current2.cancion}</h4>
+          <h3  class="card-title">${current2.artista2}</h3>
+            <h4 id=PRINCIPAL-CANCION class="card-title">${current2.cancion}</h4>
           </div>
         </div>
         `;
@@ -934,6 +1003,7 @@ class listadobleplaylist {
            graphviz += "playlist" + (i+1) +"-> playlist" + i +"\n";
            i++;
            current2 = current2.next;
+           
           
         }
       }
@@ -1011,89 +1081,147 @@ class listadobleplaylist {
      return false
     }
   }
-  moveizquierda(NOMBRE){
-    let current = this.head;
+  movederecha(NOMBRE){
+  
+
+
+
 
     let i = 1;
-    while(current){
-      if(current.usuario == USUARIO){
-        let current2 = current.cabeza;
-        while(current2.next){
-          if (current2.artista2 == NOMBRE){
-            let current6 = current2;
-            current6 = current2.prev;
-          
-            let current7 = current2;
-            current7 = current7.next;
-            let current8 = current7;
-            current8 = current8.next;
-            
-        
-          document.getElementById("PANTALLA-PLAYLIST").innerHTML = "";
-          var newDiv = document.createElement("div");
-          newDiv.id = "spanA" + (i) ;
-          var respuesta = document.getElementById("PANTALLA-PLAYLIST");
-          respuesta.appendChild(newDiv);
-     
-          let doc = document.getElementById("spanA" + (i));
-         
-          doc.innerHTML +=`
-  
+    let aux = this.head;
+    document.getElementById("PANTALLA-PLAYLIST").innerHTML = "";
+    while(aux){
+      let current2 = aux.list2.head;
+      if(aux.usuario == USUARIO){
+        var newDiv = document.createElement("div");
+        newDiv.id = "spanA" + (i) ;
+        var respuesta = document.getElementById("PANTALLA-PLAYLIST");
+        respuesta.appendChild(newDiv);
+        let doc = document.getElementById("spanA" + (i));
+        while(current2){
+          if(current2.cancion == NOMBRE){
+            let current3 = current2;
+            current3 = current3.next;
+            let current4 = current3;
+            current4 = current4.next;
+            let current5 = current4;
+            current5 = current5.next;
+            doc.innerHTML +=`
+
           <div class="card"  id="artis">
           <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
           <div class="card-body">
-          <h3 id=PRINCIPAL-CANCION class="card-title">${current7.artista2}</h3>
-            <h4 class="card-title">${current7.cancion}</h4>
+          <h3  class="card-title">${current3.artista2}</h3>
+            <h4 id=PRINCIPAL-CANCION class="card-title">${current3.cancion}</h4>
           </div>
         </div>
         `;
         doc.innerHTML +=`
-  
-        <div class="card"  id="artis">
-        <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
-        <div class="card-body">
-        <h3 class="card-title">${current8.artista2}</h3>
-          <h4 class="card-title">${current8.cancion}</h4>
-        </div>
-      </div>
-      `;
-    
-          doc.innerHTML +=`
-            
+
           <div class="card"  id="artis">
           <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
           <div class="card-body">
-            <h3  class="card-title">${current6.artista2}</h3>
-            <h4 class="card-title">${current6.cancion}</h4>
+          <h3  class="card-title">${current4.artista2}</h3>
+            <h4 id=PRINCIPAL-CANCION class="card-title">${current4.cancion}</h4>
           </div>
         </div>
         `;
-        break;
+        doc.innerHTML +=`
+
+        <div class="card"  id="artis">
+        <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+        <div class="card-body">
+        <h3  class="card-title">${current5.artista2}</h3>
+          <h4 id=PRINCIPAL-CANCION class="card-title">${current5.cancion}</h4>
+        </div>
+      </div>
+      `;
+
+      break;
+          
+          
+
+
+          }else{
+            current2 =current2.next;
           }
-          current2 = current2.next;
-          }
-         
-      
-      
-  
-  
-      
-    
-    
-  
-      }else{
-        current = current.next;
-        if(current = this.head){
-          break;
         }
       }
-      current = current.next;
+      aux = aux.next;
     }
-
-
+  
 
   }
+  moveizquierda(NOMBRE){
+     let i = 1;
+    let aux = this.head;
+    document.getElementById("PANTALLA-PLAYLIST").innerHTML = "";
+    while(aux){
+      let current2 = aux.list2.head;
+      if(aux.usuario == USUARIO){
+        var newDiv = document.createElement("div");
+        newDiv.id = "spanA" + (i) ;
+        var respuesta = document.getElementById("PANTALLA-PLAYLIST");
+        respuesta.appendChild(newDiv);
+        let doc = document.getElementById("spanA" + (i));
+        while(current2){
+          if(current2.cancion == NOMBRE){
+            let current3 = current2;
+            let currentreg = current2;
+            currentreg = currentreg.prev;
+            current3 = current3.next;
+            let current4 = current3;
+            current4 = current4.next;
+            let current5 = current4;
+            current5 = current5.next;
+            doc.innerHTML +=`
 
+          <div class="card"  id="artis">
+          <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+          <div class="card-body">
+          <h3  class="card-title">${currentreg.artista2}</h3>
+            <h4 id=PRINCIPAL-CANCION class="card-title">${currentreg.cancion}</h4>
+          </div>
+        </div>
+        `;
+        doc.innerHTML +=`
+
+          <div class="card"  id="artis">
+          <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+          <div class="card-body">
+          <h3  class="card-title">${current2.artista2}</h3>
+            <h4 id=PRINCIPAL-CANCION class="card-title">${current2.cancion}</h4>
+          </div>
+        </div>
+        `;
+        doc.innerHTML +=`
+
+        <div class="card"  id="artis">
+        <img class="card-img-top" src="https://img.icons8.com/color/512/music-heart--v2.png">
+        <div class="card-body">
+        <h3  class="card-title">${current3.artista2}</h3>
+          <h4 id=PRINCIPAL-CANCION class="card-title">${current3.cancion}</h4>
+        </div>
+      </div>
+      `;
+
+      break;
+          
+          
+
+
+          }else{
+            current2 =current2.next;
+          }
+        }
+      }
+      aux = aux.next;
+    }
+    
+
+ 
+
+}
 }
 //VARIABLES
 const admin = {
@@ -1318,6 +1446,10 @@ function musica(){
   document.getElementById("Botones-playlist").style.display = "none";
   document.getElementById("showSimpleListG1").style.display = "none";
   document.getElementById("showSimpleListG2").style.display = "none";
+  document.getElementById("PANTALLA-USUARIOS").style.display = "none";
+  document.getElementById("PANTALLA-AMIGOS").style.display = "none";
+  document.getElementById("grafoamigos").style.display = "none";
+
 
   artistas.print_canciones();
 
@@ -1331,6 +1463,10 @@ function artista(){
   document.getElementById("Botones-playlist").style.display = "none";
   document.getElementById("showSimpleListG1").style.display = "block";
   document.getElementById("showSimpleListG2").style.display = "none";
+  document.getElementById("PANTALLA-USUARIOS").style.display = "none";
+  document.getElementById("PANTALLA-AMIGOS").style.display = "none";
+  document.getElementById("grafoamigos").style.display = "none";
+
   artistas.printartistas();
   
   artistas.graph("showSimpleListG1");
@@ -1376,6 +1512,10 @@ function playlist(){
   document.getElementById("PANTALLA-MUSICA").style.display = "none";
   document.getElementById("showSimpleListG1").style.display = "none";
   document.getElementById("showSimpleListG2").style.display = "block";
+  document.getElementById("PANTALLA-USUARIOS").style.display = "none";
+  document.getElementById("PANTALLA-AMIGOS").style.display = "none";
+  document.getElementById("grafoamigos").style.display = "none";
+
   
   playlist1.print();
   playlist1.graph("showSimpleListG2")
@@ -1386,4 +1526,25 @@ function goizquierda(){
   let cancion = document.getElementById("PRINCIPAL-CANCION").innerHTML;
   // swal("oops","hola"+ ""+ cancion, "sucess")
   playlist1.moveizquierda(cancion);
+}
+function goderecha(){
+  let cancion = document.getElementById("PRINCIPAL-CANCION").innerHTML;
+  playlist1.movederecha(cancion)
+}
+
+function amigos(){
+  document.getElementById("PANTALLA-PLAYLIST").style.display = "none";
+  document.getElementById("Botones-playlist").style.display = "none";
+  document.getElementById("Ordenar").style.display = "none";
+  document.getElementById("formulario").style.display = "none";
+  document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
+  document.getElementById("PANTALLA-MUSICA").style.display = "none";
+  document.getElementById("showSimpleListG1").style.display = "none";
+  document.getElementById("showSimpleListG2").style.display = "none";
+  document.getElementById("PANTALLA-USUARIOS").style.display = "block";
+  document.getElementById("PANTALLA-AMIGOS").style.display = "block";
+  document.getElementById("grafoamigos").style.display = "block";
+  clientes.mostrarusuarios();
+
+  
 }
