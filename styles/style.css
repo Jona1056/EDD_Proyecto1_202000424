@@ -227,6 +227,19 @@ input {
   overflow: auto;
   display: none;
 }
+#showSimpleListG4{
+  width: 500px;
+  height: 400px;
+  margin-left: 450px;
+  margin-top: 10px;
+
+
+  
+
+
+  overflow: auto;
+  display: block;
+}
 #showBST {
   width: 900px;
   height: 500px;
@@ -505,6 +518,13 @@ input {
 
 
 }
+#texto3{
+  font-size: 50px;
+  margin-left: 450px;
+  font-weight: bold;
+  color:blueviolet
+  
+}
 
 
 ESTILOS PANTALLA AMIGOS
@@ -553,4 +573,33 @@ ESTILOS PANTALLA AMIGOS
 
 
 
+}
+#PANTALLA-AMIGOS > #spanAC1{
+
+  margin-top: 10px;
+  border: #2d2f36;
+  border-style: solid;
+
+
+ 
+  float:left;
+ 
+  display:flex;
+
+
+  flex-direction:row;
+
+
+
+  
+
+
+
+}
+#botoneliminar{
+  margin-top:-700px;
+  margin-left: 100px;
+}
+#botonbloquear{
+  margin-top:-700px;
 }

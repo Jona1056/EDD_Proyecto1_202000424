@@ -17,17 +17,23 @@ class listaenlazada {
     this.head = null;
     this.size = 0;
   }
+
   mostrarusuarios(){
     let current = this.head;
     let i = 1;
     if(current){
       document.getElementById("PANTALLA-USUARIOS").innerHTML = "";
+      document.getElementById("PANTALLA-USUARIOS").innerHTML +=    '<h5 id="texto3">AGREGAR AMIGOS</h5>'
       var newDiv = document.createElement("div");
       newDiv.id = "spanAB" + (i) ;
       var respuesta = document.getElementById("PANTALLA-USUARIOS");
       respuesta.appendChild(newDiv);
       let doc = document.getElementById("spanAB" + (i));
+
       while(current ){
+        if(current.admin == true){
+          current = current.next;
+        }else{
         doc.innerHTML +=`
 
         <div class="card"  id="artis2">
@@ -40,12 +46,13 @@ class listaenlazada {
         <li class="list-group-item">Dpi: ${current.dpi}</li>
       </ul>
         </div>
-        <button id="${current.username}" class="btn btn-primary" onclick="agregarusuario('${current.name}','${current.username}','${USUARIO}')"  >AGREGAR</button>
-        <button id="${current.username}" class="btn btn-danger" onclick="bloquearusuario('${current.name}','${current.username}','${USUARIO}')"  >BLOQUEAR</button>
+        <button id="${current.username}" class="btn btn-primary" onclick="agregarusuario('${current.name}','${current.username}','${current.dpi}','${current.phone}')"  >AGREGAR</button>
+        <button id="${current.username}" class="btn btn-danger" onclick="bloquearusuario('${current.name}','${current.username}','${current.dpi}','${current.phone}')"  >BLOQUEAR</button>
       </div>
       `;
         current = current.next;
       }
+    }
 
     }else{
       swal("erro", "No hay usuarios","error")
@@ -166,7 +173,7 @@ class listaenlazada {
 
     while (current != null) {
       // recorremos la lista hasta que sea null y agregamos un indicie cliente1
-      graphviz += "cliente" + i + '[label="' + current.password + '"];\n';
+      graphviz += "cliente" + i + '[label="' + current.name + '"];\n';
 
       i++;
       current = current.next;
@@ -224,6 +231,342 @@ class listaenlazada {
       .renderDot(graphviz);
   }
 }
+//COLA PARA BLOQUEADOS
+
+class UsuarioBloqueados{
+  constructor(usuario){
+    this.usuario = usuario;
+    this.next = null;
+    this.prev = null;
+    this.down = new bloqueados1();
+  }
+}
+
+class bloqueados1{
+  constructor(name,username,phone,dpi){
+    this.name = name;
+    this.username = username;
+    this.phone = phone;
+    this.dpi = dpi;
+    this.next = null;
+  }
+}
+class listabloqueados{
+  constructor(){
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+}
+
+
+// PILA PARA AMIGOS
+
+class Usuarioamigos{
+  constructor(Usuario){
+    this.usuario = Usuario;
+    this.down = new amigos1();
+    this.next = null;
+    this.prev = null;
+
+  }
+  add(usuario1){
+    if(this.verificarUsuario(usuario1)){
+   
+    }else{
+      const newNode = new Usuarioamigos(USUARIO)
+      if(this.head){
+        newNode.next = this.head;
+        this.head.prev= newNode;
+        this.head = newNode;
+      }else{
+        this.head = newNode;
+        this.tail = newNode;
+      }
+      this.size++;
+  
+
+    }
+  }
+  verificarUsuario(usuario){
+    let current = this.head;
+    while(current != null){
+      if(current.usuario == USUARIO){
+        return true;
+      }else{
+        current = current.next;
+      }
+    }
+    return false;
+  }
+  addbloqueados(name,username,dpi,phone){
+    let current = this.head;
+    while (current){
+      
+      if(this.verificarbloqueado(username)){
+        swal("oops","EL USUARIO YA FUE BLOQUEADO", "error")
+      }else{
+      if(!current.down){
+        current.down = new Usuarioamigos(name,username,dpi,phone)
+      }else{
+        let current2 = current.down;
+        while(current2.next){
+          current2 = current2.next;
+         
+        
+
+        }
+        current2.next = new Usuarioamigos(name,username,dpi,phone)
+      }
+        swal("check","BLOQUEADO","succes")
+      }
+      current = current.next;
+    }
+  
+  }
+  verificarbloqueado(usuario){
+    let current = this.head;
+    while(current !=null){
+      if(current.usuario == USUARIO){
+        let current2 = current.down;
+        while(current2){
+          if(current2.username== usuario){
+            return true;
+          }
+          current2 = current2.next;
+        }
+      }
+      current = current.next();
+    }
+    return false;
+  }
+  
+}
+
+class amigos1{
+  constructor(name,username,phone,dpi){
+    this.name = name;
+    this.username = username;
+    this.phone = phone;
+    this.dpi = dpi;
+    this.next = null;
+  
+  }
+  
+}
+
+class listaamigos{
+  constructor(){
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+    this.size2 = 0;
+
+  }
+  eliminaramigo1(){
+    let current = this.head;
+    let aux = current.down
+    if(aux != null){
+      this.size2--;
+      var temp = aux;
+      current.down = temp.next;
+    }else{
+      return null
+    }
+    }
+  add(usuario1){
+    if(this.verificarUsuario(usuario1)){
+     
+    }else{
+      const newNode = new Usuarioamigos(USUARIO)
+      if(this.head){
+        newNode.next = this.head;
+        this.head.prev= newNode;
+        this.head = newNode;
+      }else{
+        this.head = newNode;
+        this.tail = newNode;
+      }
+      this.size++;
+  
+
+    }
+  }
+  verificarUsuario(usuario){
+    let current = this.head;
+    while(current != null){
+      if(current.usuario == USUARIO){
+        return true;
+      }else{
+        current = current.next;
+      }
+    }
+    return false;
+  }
+  
+  addamigos(usuario5,username5,dpi5,numero5){
+    let temporalcabeza = this.head;
+    while(temporalcabeza != null){
+      if(temporalcabeza.usuario ==USUARIO){
+        if(this.verificaramigos(username5)){
+          swal("oops","El ya es tu amigo", "error")
+        }else{
+        var nuevacancion = new amigos1(usuario5,username5,numero5,dpi5)
+        var iniciousuarios = temporalcabeza.down;
+        this.size2++;
+        if(temporalcabeza.down){
+          nuevacancion.next = iniciousuarios;
+          temporalcabeza.down = nuevacancion
+        }else{
+          temporalcabeza.down= nuevacancion;
+
+        }
+        swal(
+          "GUARDADO",
+          "AMIGO AGREGADO CORRECTAMENTE" + " " + "Amigo numero" + this.size2,
+    
+          "success"
+        );
+        
+        }
+      }
+      temporalcabeza = temporalcabeza.next;
+    }
+
+  }
+  graph(idDiv){
+    let graphviz =
+    'digraph SimpleList{\nnode[shape= record, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.0;\nnodesep = 0.0;\nsubgraph cluster_A{\nlabel = "LISTA AMIGOS";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 100;\n\n ';
+
+    //we create the customer nodes
+    let aux = this.head;
+   
+
+    let i = 1;
+    while(aux){
+      let current2 = aux.down;
+      if(aux.usuario == USUARIO){
+        while(current2.next){
+          graphviz += "Lista" + i + '[label="' + current2.name+ '"];\n';
+          current2= current2.next;
+          i++;
+        
+       
+        }
+        
+      }
+      aux = aux.next;
+     
+     
+    }
+
+    aux = this.head;
+    i = 1;
+    let H = 0;
+    while(aux){
+      let current2 = aux.down;
+      if(aux.usuario == USUARIO){
+        while(current2){
+          if(current2.next != null){
+            graphviz += "Lista" + i + " -> Lista" + (i + 1) + "\n";
+            
+          }
+          i++;
+            current2 = current2.next;
+       
+        
+          
+        
+        }
+      }
+      aux = aux.next;
+    }
+  
+      graphviz += "\n\n}\n}";
+
+    // console.log(graphviz);
+
+    let id = "#" + idDiv;
+
+    d3.select(id) //creamos con d3 el rendeDot y el paragrah
+      .graphviz()
+
+      .width(2000)
+      .height(1500)
+      .zoom(true)
+      .fit(true)
+      .renderDot(graphviz);
+
+  }
+
+  verificaramigos(usuario3){
+
+    let current = this.head;
+    while(current != null){
+      if(current.usuario== USUARIO){
+    
+        
+        let current2 = current.down;
+        while(current2){
+          if(current2.username == usuario3){
+            return true;
+          }
+          current2 = current2.next;
+         
+        
+        }
+      }
+      current = current.next;
+    }
+    return false;
+  
+  }
+  print2(){
+    let i = 1;
+    let aux = this.head;
+    document.getElementById("PANTALLA-AMIGOS").innerHTML = "";
+    document.getElementById("PANTALLA-AMIGOS").innerHTML += '<h5 id="texto3">AMIGOS AGREGADOS</h5>'
+    while(aux){
+      let current2 = aux.down;
+      if(aux.usuario== USUARIO){
+        var newDiv = document.createElement("div");
+        newDiv.id = "spanAC" + (i) ;
+        var respuesta = document.getElementById("PANTALLA-AMIGOS");
+        respuesta.appendChild(newDiv);
+        let doc = document.getElementById("spanAC" + (i));
+        while(current2.next){
+          doc.innerHTML +=`
+
+        <div class="card"  id="artis2">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/3429/3429199.png">
+        <div class="card-body" >
+        <h3  class="card-title">${current2.name}</h3>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">Numero: ${current2.phone}</li>
+        <li class="list-group-item">Username: ${current2.username}</li>
+        <li class="list-group-item">Dpi: ${current2.dpi}</li>
+      </ul>
+        </div>
+
+      </div>
+      `;
+        current2 = current2.next;
+
+
+        }
+        
+      }
+      
+      aux = aux.next;
+    }
+    let doc = document.getElementById("spanAC" + (i));
+
+    
+
+  }
+}
+
+
 
 // LISTA PARA ARTISTAS
 class Artista {
@@ -861,12 +1204,6 @@ class listadobleplaylist {
     return this.head;
   }
   print(){
-
-    // let current = this.head;
-    // let current2 = current.list2.head;
-    // swal("oops","Hoal" + current2.cancion,"success")
-  
-
     let i = 1;
     let aux = this.head;
     document.getElementById("PANTALLA-PLAYLIST").innerHTML = "";
@@ -1236,6 +1573,8 @@ let artistas = new listadobleartista();
 var USUARIO = ""
 var result = "";
 let playlist1 = new listadobleplaylist();
+let listaamigos1 = new listaamigos();
+let colabloqueados = new Usuarioamigos();
 // let canciones = new listadobleplaylist();
 // ---------------------------------------------------------------
 
@@ -1317,6 +1656,11 @@ function signoff2(){
   document.getElementById("Ordenar").style.display = "none";
   document.getElementById("formulario").style.display = "none";
   document.getElementById("showSimpleListG1").style.display = "none";
+  document.getElementById("PANTALLA-USUARIOS").style.display = "none";
+  document.getElementById("grafoamigos").style.display = "none";
+  document.getElementById("PANTALLA-AMIGOS").style.display = "none";
+  
+  
 
 }
 
@@ -1544,7 +1888,30 @@ function amigos(){
   document.getElementById("PANTALLA-USUARIOS").style.display = "block";
   document.getElementById("PANTALLA-AMIGOS").style.display = "block";
   document.getElementById("grafoamigos").style.display = "block";
-  clientes.mostrarusuarios();
 
   
+  clientes.mostrarusuarios();
+  listaamigos1.graph("showSimpleListG4")
+  listaamigos1.print2();
+
+  
+}
+
+function agregarusuario(usuario4,username4,dpi4,numero4){
+
+  listaamigos1.add(username4);
+  listaamigos1.addamigos(usuario4,username4,dpi4,numero4);
+  listaamigos1.graph("showSimpleListG4")
+  listaamigos1.print2();
+  
+
+}
+function bloquearusuario(usuario,username,dpi,numero){
+  colabloqueados.add();
+  colabloqueados.addbloqueados(usuario,username,dpi,numero)
+}
+function eliminaramigo(){
+  listaamigos1.eliminaramigo1();
+  listaamigos1.graph("showSimpleListG4")
+  listaamigos1.print2();
 }
