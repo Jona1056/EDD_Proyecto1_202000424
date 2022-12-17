@@ -1,6 +1,6 @@
 // MATRIZ DISPERSA
 class NodoMatriz {
-    constructor(x, y, obj) {
+    constructor(x, y, obj,cancion) {
         this.next = null;
         this.prev = null;
         this.up = null;
@@ -9,6 +9,7 @@ class NodoMatriz {
         this.x = x;
         this.y = y;
         this.obj = obj;
+        this.cancion = cancion;
     }
 }
 
@@ -30,8 +31,8 @@ class Matriz {
         this.rowsList = new Header();
     }
 
-    insertar(x, y, obj) {
-        let cell = new NodoMatriz(x, y, obj);
+    insertar(x, y, obj,cancion) {
+        let cell = new NodoMatriz(x, y, obj,cancion);
 
         let columna = this.colsList.getHeader(y);
         if (columna == null) {
@@ -63,9 +64,11 @@ class Matriz {
 
         let row = this.rowsList.getHeader(x);
         if (row == null) {
+            
             row = new NodoHeader(x);
             this.rowsList.setHeader(row);
             row.access = cell;
+        
         } else if (y < row.access.y) {
             cell.next = row.access;
             row.access.prev = cell;
@@ -85,7 +88,7 @@ class Matriz {
 
             if (aux.next == null) {
                 aux.next = cell;
-                cell.up = aux;
+                cell.prev = aux;
             }
         }
     }
@@ -100,213 +103,228 @@ class Matriz {
 
 
     configraph() {
-        let xela = "";
-        xela += "digraph G{ node[shape=box style=filled]\n" + "subgraph cluster_p{\n";
-        xela += 'label = "Matriz DISPERSA"' + 'edge[dir = "both"];\n';
+        let temp = "";
+        temp += "digraph G{ node[shape=box style=filled]\n" + "subgraph cluster_p{\n";
+        temp += 'label = "Matriz DISPERSA"' + 'edge[dir = "both"];\n';
 
-        xela += this.nodoX();
-        xela += this.ColbyR();
-        xela += this.nodoY();
-        xela += this.RowsbyR();
-
-
-
-        xela += this.renderNodes();
-
-        xela += this.graphRanks();
+        temp += this.nodoX();
+        temp += this.ColbyR();
+        temp += this.nodoY();
+        temp += this.RowsbyR();
 
 
 
+        temp += this.renderNodes();
 
-        xela += "}}";
-        return xela.toString();
+        temp += this.graphRanks();
+
+
+
+
+        temp += "}}";
+        return temp.toString();
     }
 
     nodoX() {
-        let xela = "";
+        let temp = "";
         let auxc = this.colsList.head;
-        xela += "Mt -> C";
-        xela += auxc.pos;
-        xela += ";\n";
+        
+        temp += "CABEZA -> ";
+        temp += auxc.pos;
+        temp += ";\n";
 
         while (auxc != null) {
-            xela += "C";
-            xela += auxc.pos;
-            xela += "[group =";
-            xela += auxc.pos;
-            xela += ", fillcolor=antiquewhite2 ];\n";
+  
+            temp += auxc.pos;
+            temp += "[group =";
+            temp += auxc.pos;
+            temp += ", fillcolor=antiquewhite2 ];\n";
 
             if (auxc.next != null) {
-                xela += "C";
-                xela += auxc.pos;
-                xela += " -> C";
-                xela += auxc.next.pos;
-                xela += ";\n";
+     
+                temp += auxc.pos;
+                temp += " -> ";
+                temp += auxc.next.pos;
+                temp += ";\n";
             }
             auxc = auxc.next;
         }
         auxc = this.colsList.head;
-        xela += "{ rank = same; Mt;";
+        temp += "{ rank = same; CABEZA;";
 
         while (auxc != null) {
-            xela += "C";
-            xela += auxc.pos;
-            xela += ";";
+     
+            temp += auxc.pos;
+            temp += ";";
 
             auxc = auxc.next;
         }
-        xela += "}\n";
+        temp += "}\n";
 
-        return xela.toString();
+        return temp.toString();
     }
 
     nodoY() {
-        let xela = "";
+        let temp = "";
 
         let auxr = this.rowsList.head;
-        xela += "Mt -> F";
-        xela += auxr.pos;
-        xela += ";\n";
+        temp += "CABEZA -> ";
+        temp += auxr.pos;
+        temp += ";\n";
 
         while (auxr != null) {
-            xela += "F";
-            xela += auxr.pos;
+       
+            temp += auxr.pos;
 
-            xela += "[group=1, fillcolor=antiquewhite2 ];\n";
+            temp += "[group=1, fillcolor=antiquewhite2 ];\n";
 
             if (auxr.next != null) {
-                xela += "F";
-                xela += auxr.pos;
-                xela += " -> F";
-                xela += auxr.next.pos;
-                xela += ";\n";
+             
+                temp += auxr.pos;
+                temp += " -> ";
+                temp += auxr.next.pos;
+                temp += ";\n";
             }
             auxr = auxr.next;
         }
-        return xela.toString();
+        return temp.toString();
     }
 
     renderNodes() {
-        let xela = "";
+        let temp = "";
         let auxc = this.colsList.head;
         while (auxc != null) {
             let aux = auxc.access;
+    
             while (aux != null) {
-                xela += "X";
-                xela += aux.x;
-                xela += "Y";
-                xela += aux.y;
-                xela += '[label="';
-                xela += aux.obj;
-                xela += '", group=';
-                xela += aux.y;
-                xela += "];\n";
+            
+                temp += "X";
+                temp += aux.x;
+                temp += "Y";
+                temp += aux.y;
+                temp += '[label="';
+                temp += aux.obj ;
+                temp += aux.cancion;
+                temp += '", group=';
+                temp += aux.y;
+                temp += "];\n";
 
                 aux = aux.down;
             }
             auxc = auxc.next;
         }
-        return xela.toString();
+        return temp.toString();
     }
 
     ColbyR() {
-        let xela = "";
-        let xela2 = "";
+        let temp = "";
+        let temp2 = "";
         let auxc = this.colsList.head;
         while (auxc != null) {
             if (auxc.access != null) {
-                xela += "C";
-                xela += auxc.pos;
-                xela += " -> ";
-                xela += "X";
-                xela += auxc.access.x;
-                xela += "Y";
-                xela += auxc.access.y;
-                xela += ";\n";
+         
+                temp += auxc.pos;
+                temp += " -> ";
+                temp += "X";
+                temp += auxc.access.x;
+                temp += "Y";
+                temp += auxc.access.y;
+                temp += ";\n";
             }
             let aux = auxc.access;
             while (aux != null) {
                 if (aux.down != null) {
-                    xela2 += "X";
-                    xela2 += aux.x;
-                    xela2 += "Y";
-                    xela2 += aux.y;
-                    xela2 += " -> ";
-                    xela2 += "X";
-                    xela2 += aux.down.x;
-                    xela2 += "Y";
-                    xela2 += aux.down.y;
-                    xela2 += ";\n";
+                    if(aux.x == aux.down.x){
+
+                    }else{
+                    temp2 += "X";
+                    temp2 += aux.x;
+                    temp2 += "Y";
+                    temp2 += aux.y;
+                    temp2 += " -> ";
+                    temp2 += "X";
+                    temp2 += aux.down.x;
+                    temp2 += "Y";
+                    temp2 += aux.down.y;
+                    temp2 += ";\n";
+                    }
                 }
                 aux = aux.down;
             }
             auxc = auxc.next;
         }
-        xela += xela2;
-        return xela.toString();
+        temp += temp2;
+        return temp.toString();
     }
 
     RowsbyR() {
-        let xela = "";
-        let xela2 = "";
+        let temp = "";
+        let temp2 = "";
         let auxr = this.rowsList.head;
         while (auxr != null) {
             if (auxr.access != null) {
-                xela += "F";
-                xela += auxr.pos;
-                xela += " -> ";
-                xela += "X";
-                xela += auxr.access.x;
-                xela += "Y";
-                xela += auxr.access.y;
-                xela += ";\n";
+             
+                    temp += auxr.pos;
+                    temp += " -> ";
+                    temp += "X";
+                    temp += auxr.access.x;
+                    temp += "Y";
+                    temp += auxr.access.y;
+                    temp += ";\n";
+               
+            
+                
             }
             let aux = auxr.access;
             while (aux != null) {
                 if (aux.next != null) {
+                    if(aux.y == aux.next.y){
 
-                    xela2 += "X";
-                    xela2 += aux.x;
-                    xela2 += "Y";
-                    xela2 += aux.y;
-                    xela2 += " -> ";
-                    xela2 += "X";
-                    xela2 += aux.next.x;
-                    xela2 += "Y";
-                    xela2 += aux.next.y;
-                    xela2 += ";\n";
+                    }else{
+
+                    temp2 += "X";
+                    temp2 += aux.x;
+                    temp2 += "Y";
+                    temp2 += aux.y;
+                    temp2 += " -> ";
+                    temp2 += "X";
+                    temp2 += aux.next.x;
+                    temp2 += "Y";
+                    temp2 += aux.next.y;
+                    temp2 += ";\n";
+                    }
                 }
                 aux = aux.next;
             }
             auxr = auxr.next;
         }
-        xela += xela2;
-        return xela.toString();
+        temp += temp2;
+        return temp.toString();
     }
 
     graphRanks() {
-        let xela = "";
+        let temp = "";
         let auxr = this.rowsList.head;
         while (auxr != null) {
-            xela += "{ rank = same; F";
-            xela += auxr.pos;
-            xela += ";";
+            temp += "{ rank = same; ";
+            temp += auxr.pos;
+            temp += ";";
 
             let aux = auxr.access;
             while (aux != null) {
-                xela += "X";
-                xela += aux.x;
-                xela += "Y";
-                xela += aux.y;
-                xela += ";";
+                temp += "X";
+                temp += aux.x;
+                temp += "Y";
+                temp += aux.y;
+                temp += ";";
 
                 aux = aux.next;
             }
-            xela += "}\n";
+            temp += "}\n";
 
             auxr = auxr.next;
         }
-        return xela.toString();
+        return temp.toString();
     }
 }
 
@@ -358,6 +376,7 @@ class Header {
 
 
 const matrizDispersa = new Matriz();
-matrizDispersa.insertar(1,2,"Hola");
+matrizDispersa.insertar("December",1,"Hola","mia");
+
 
 matrizDispersa.exportRender()

@@ -520,12 +520,15 @@ input {
   margin-top: 10px;
   overflow:auto;
   margin-bottom: 10px;
+
   
 }
 
 #spanA1 > #artis{
   float:left;
   width: 350px;
+  border: #2d2f36;
+  border-style: solid;
   
 
 
@@ -590,6 +593,11 @@ ESTILOS PANTALLA AMIGOS
 
 
 }
+
+#PANTALLA-MUSICA > #libr{
+  border: #2d2f36;
+  border-style: solid;
+}
 #PANTALLA-AMIGOS > #spanAC1{
 
   margin-top: 10px;
@@ -611,6 +619,15 @@ ESTILOS PANTALLA AMIGOS
 
 
 
+}
+#PANTALLA-MUSICA  {
+  border: #2d2f36;
+  border-style: solid;
+  float:left;
+  display:flex;
+  flex-direction:row;
+  margin-right: 20px;
+  margin-top:30px;
 }
 #Mostrar-bloqueados > #spanACD1{
   margin-top: 10px;
@@ -639,5 +656,44 @@ ESTILOS PANTALLA AMIGOS
 
 #Mostrar-bloqueados{
   display:none;
+
+}
+#month{
+  margin-left:35px;
+  margin-bottom: 10px;
+}
+
+#day{
+  margin-left:35px;
+  margin-bottom: 10px;
+}
+
+#mostrar-calendar{
+  display:none;
+  border-style: solid;
+  margin-top:10px;
+  color:#2d2f36
+}
+
+#mostrar-calendar > label{
+    color:#2d2f36
+}
+
+ #artis{
+  border: #2d2f36;
+  border-style: solid;
+}
+#artis2{
+  border: #2d2f36;
+  border-style: solid;
+}
+
+#libr{
+  border: #2d2f36;
+  border-style: solid;
+
+
+ 
+
 
 }
