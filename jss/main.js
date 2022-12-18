@@ -231,6 +231,431 @@ class listaenlazada {
       .renderDot(graphviz);
   }
 }
+//ARBOL BINARIO CODIGO
+
+
+class BSTreeNode{
+
+  constructor(data){
+
+      this.data = data;
+      this.left = null;
+      this.right = null;
+
+  }
+
+  //Getters
+  getData(){
+
+      return this.data;
+  }
+
+  getLeft(){
+
+      return this.left;
+  }
+
+  getRight(){
+
+      return this.right;
+  }
+
+  //Setters
+  setData(data){
+
+      this.data = data;
+  }
+
+  setLeft(left){
+
+      this.left = left;
+  }
+
+  setRight(right){
+
+      this.right = right;
+  }
+}
+class BSTree{
+
+  constructor(){
+
+      this.root = null;
+      this.graphviz = '';
+
+  }
+
+
+  add(data){
+
+      if(this.root == null){
+
+          let newNode = new BSTreeNode(data);
+          this.root = newNode;
+      }else{
+
+          this._add(this.root, data);
+      }
+
+
+  }
+
+  _add(node, data){
+
+      if(data.name < node.getData().name){
+
+          if(node.getLeft() == null){
+              let newNode =  new BSTreeNode(data);
+              node.setLeft(newNode);
+
+          }else{
+              this._add(node.getLeft(), data);
+          }
+
+
+      }else if(data.name > node.getData().name){
+
+          if(node.getRight() == null){
+              let newNode =  new BSTreeNode(data);
+              node.setRight(newNode);
+
+          }else{
+              this._add(node.getRight(), data);
+
+          }
+
+      }else{
+
+          console.log('Se enconstro un elemento igual al que se quiere insetar, insercción fallida.')
+      }
+  }
+
+  //Tours
+
+  //Inorden
+  inorden(){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._inorden(this.root);
+      }
+  }
+
+  _inorden(node){
+
+      if(node != null){
+
+          this._inorden(node.getLeft());
+          console.log(node.getData() + ' ');
+          this._inorden(node.getRight());
+      }
+
+  }
+
+  inordenR(){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._inordenR(this.root);
+      }
+  }
+
+  _inordenR(node){
+
+      if(node != null){
+
+          this._inordenR(node.getRight());
+          console.log(node.getData() + ' ');
+          this._inordenR(node.getLeft());
+      }
+
+  }
+
+  //Preorden
+  preorden(){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._preorden(this.root);
+      }
+  }
+
+  _preorden(node){
+
+      if(node != null){
+
+          console.log(node.getData() + ' ');
+          this._preorden(node.getLeft());
+          this._preorden(node.getRight());
+      }
+
+
+  }
+
+  //PostOrden
+  postorden(){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._postorden(this.root);
+      }
+  }
+
+  _postorden(node){
+
+      if(node != null){
+
+          this._postorden(node.getLeft());
+          this._postorden(node.getRight());
+          console.log(node.getData() + ' ');
+          
+      }
+
+
+  }
+
+  //Graphviz
+  graph(idDiv){
+
+      this.graphviz = '';
+      this.graphviz = ' digraph SimpleList{\nnode[shape= record, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.0;\nnodesep = 0.0;\nsubgraph cluster_A{\nlabel = "PODCAST";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 100;\n\n ';
+
+      this.preordenGraph();
+
+      this.graphviz += '}\n}';
+
+
+      let id = '#'+idDiv;
+
+      d3.select(id).graphviz()
+          
+          .width(2000)
+          .height(1500)
+          .zoom(true)
+          .fit(true)
+          .renderDot(this.graphviz)
+
+  }
+
+  preordenGraph(){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._preordenGraph(this.root);
+      }
+  }
+
+  _preordenGraph(node){
+
+      if(node != null){
+
+          if(node.getLeft() != null){
+
+              this.graphviz += node.getData().duration+ '[label="' + node.getData().name + '"];\n';
+              this.graphviz += node.getLeft().getData().duration + '[label="' + node.getLeft().getData().name+ '"];\n';
+              this.graphviz += node.getData().duration + ' -> ' + node.getLeft().getData().duration+ '\n';
+          }
+          if(node.getRight() != null){
+              
+              this.graphviz += node.getData().duration + '[label="' + node.getData().name+ '"];\n';
+              this.graphviz += node.getRight().getData().duration + '[label="' + node.getRight().getData().name + '"];\n';
+              this.graphviz += node.getData().duration + ' -> ' + node.getRight().getData().duration + '\n';
+          }
+          this._preordenGraph(node.getLeft());
+          this._preordenGraph(node.getRight());
+      }
+
+
+  }
+
+  //Cards
+
+  //Inorden
+  inordenCard(idDiv){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._inordenCard(this.root, idDiv);
+      }
+  }
+
+  _inordenCard(node, idDiv){
+
+      if(node != null){
+
+          this._inordenCard(node.getLeft(), idDiv);
+
+          //
+          
+          let card = document.querySelector(idDiv);
+          
+
+          let newDiv = document.createElement("div");
+          card.innerHTML += `
+          <div class="card" id="cardsActorsUser">
+              <div class="card-body">
+
+                  <div id="movieName">
+                      <img src="https://cdn-icons-png.flaticon.com/512/475/475283.png" id="imageP">
+                      <h4>${node.getData().nombre_actor}</h4>
+
+                  </div>  
+
+                  <div id="description">
+                      <h5 class="card-title">Descripción</h5>
+                      <p class="card-text">${node.getData().descripcion}</p>
+
+                  </div>
+              </div>
+          </div>`;
+
+          //
+
+          this._inordenCard(node.getRight(), idDiv);
+      }
+
+  }
+
+  //Preorden
+  preordenCard(idDiv){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._preordenCard(this.root, idDiv);
+      }
+  }
+
+  _preordenCard(node, idDiv){
+
+      if(node != null){
+
+          //
+          let i = 1;
+          var newDiv = document.createElement("div");
+        newDiv.id = "spanACD" + (i) ;
+        var respuesta = document.getElementById("PANTALLA-PODCAST");
+        respuesta.appendChild(newDiv);
+        let doc = document.getElementById("spanACD" + (i));
+        doc.innerHTML +=`
+
+        <div class="card"  id="artis2">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/1312/1312585.png">
+        <div class="card-body" >
+        <h3  class="card-title">${node.getData().name}</h3>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">Duracion: ${node.getData().duration}</li>
+        <li class="list-group-item">topic: ${node.getData().topic}</li>
+       
+      </ul>
+        </div>
+
+      </div>
+      `;
+
+          //
+          this._preordenCard(node.getLeft(), idDiv);
+          this._preordenCard(node.getRight(), idDiv);
+      }
+
+
+  }
+
+  //PostOrden
+  postordenCard(idDiv){
+
+      if(this.root == null){
+
+          console.log('No se ha insertado nada en el BSTree.');
+      }else{
+
+          this._postordenCard(this.root, idDiv);
+      }
+  }
+
+  _postordenCard(node, idDiv){
+
+      if(node != null){
+
+          this._postordenCard(node.getLeft(), idDiv);
+          this._postordenCard(node.getRight(), idDiv);
+          //
+          
+          let card = document.querySelector(idDiv);
+          
+
+          let newDiv = document.createElement("div");
+          card.innerHTML += `
+          <div class="card" id="cardsActorsUser">
+              <div class="card-body">
+
+                  <div id="movieName">
+                      <img src="https://cdn-icons-png.flaticon.com/512/475/475283.png" id="imageP">
+                      <h4>${node.getData().nombre_actor}</h4>
+
+                  </div>  
+
+                  <div id="description">
+                      <h5 class="card-title">Descripción</h5>
+                      <p class="card-text">${node.getData().descripcion}</p>
+
+                  </div>
+              </div>
+          </div>`;
+
+          //
+          
+      }
+
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------------------------------
 
 
 
@@ -268,6 +693,38 @@ class Matriz {
       this.colsList = new Header();
       this.rowsList = new Header();
   }
+  buscar(mes, dia){
+    let auxc = this.rowsList.head;
+    while (auxc != null) {
+      if(auxc == null){
+        swal("cancion no encontrada","agrega la cancion","error")
+      }else{
+      let aux = auxc.access;
+
+      while (aux != null) {
+       
+      
+      
+        if(aux.x == mes && aux.y == dia){
+         
+       
+         
+            swal("cancion encontrada", "Artista: "+aux.cancion + " " + "cancion: " +aux.obj,"success")
+           
+        }
+   
+      
+     
+        aux = aux.next;
+      
+
+       
+      
+    }
+  }
+      auxc = auxc.next;
+  }
+}
 
   insertar(x, y, obj,cancion) {
       let cell = new NodoMatriz(x, y, obj,cancion);
@@ -2279,6 +2736,7 @@ let playlist1 = new listadobleplaylist();
 let listaamigos1 = new listaamigos();
 let colabloqueados = new listabloqueados();
 const matrizDispersa = new Matriz();
+var abb = new BSTree();
 
 // let canciones = new listadobleplaylist();
 // ---------------------------------------------------------------
@@ -2366,6 +2824,7 @@ function signoff2(){
   document.getElementById("PANTALLA-AMIGOS").style.display = "none";
   document.getElementById("PANTALLA-BLOQUEADOS").style.display = "none";
   document.getElementById("Mostrar-bloqueados").style.display = "none";
+  document.getElementById("PANTALLA-PODCAST").style.display = "none";
   
   
 
@@ -2458,6 +2917,37 @@ function cargar_artistas(e) {
 document
   .getElementById("ArtistaFile")
   .addEventListener("change", cargar_artistas, false);
+ // cargar podcast 
+
+ function cargar_podcast(e) {
+  var archivo = e.target.files[0];
+  document.getElementById("podcastFile").files[0];
+
+  if (!archivo) {
+    return;
+  }
+  let lector = new FileReader();
+
+  lector.onload = function (e) {
+    let contenido = e.target.result;
+
+    const _artis = JSON.parse(contenido);
+
+    for (const i in _artis) {
+      let artis1 = _artis[i];
+      abb.add(artis1)
+   
+    }
+  };
+
+  lector.readAsText(archivo);
+}
+document
+  .getElementById("podcastFile")
+  .addEventListener("change", cargar_podcast, false);
+
+
+
 
 //creacion de canciones
 function cargar_canciones(e) {
@@ -2539,6 +3029,7 @@ function musica(){
   document.getElementById("PANTALLA-BLOQUEADOS").style.display = "none";
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "block";
+  document.getElementById("PANTALLA-PODCAST").style.display = "none";
 
 
   artistas.print_canciones();
@@ -2559,6 +3050,7 @@ function artista(){
   document.getElementById("PANTALLA-BLOQUEADOS").style.display = "none";
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
+  document.getElementById("PANTALLA-PODCAST").style.display = "none";
 
   artistas.printartistas();
   
@@ -2612,6 +3104,7 @@ function playlist(){
   document.getElementById("PANTALLA-BLOQUEADOS").style.display = "none";
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
+  document.getElementById("PANTALLA-PODCAST").style.display = "none";
 
   
   playlist1.print();
@@ -2644,6 +3137,7 @@ function amigos(){
   document.getElementById("PANTALLA-BLOQUEADOS").style.display = "none";
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
+  document.getElementById("PANTALLA-PODCAST").style.display = "none";
 
 
   
@@ -2668,6 +3162,7 @@ function bloqueados(){
   document.getElementById("PANTALLA-AMIGOS").style.display = "none";
   document.getElementById("grafoamigos").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
+  document.getElementById("PANTALLA-PODCAST").style.display = "none";
   colabloqueados.print();
   colabloqueados.graph("showSimpleListG5");
 }
@@ -2716,4 +3211,44 @@ function PROGRAMAR(){
   let day = document.getElementById("day").value;
   let namecancion = document.getElementById("name-cancion").value;
   matrizDispersa.insertar(mes,day,namecancion,USUARIO)
+}
+
+function calendarbus(){
+  let mes = document.getElementById("month1").value;
+  let day = document.getElementById("day1").value;
+
+  matrizDispersa.buscar(mes,day);
+
+}
+let temp1
+let contador = 1;
+function showARBOL(){
+  document.getElementById("showHashTableG").style.display = "block";
+  document.getElementById("showSimpleListG").style.display = "none";
+  document.getElementById("showBST").style.display = "none";
+  document.getElementById("showAVL").style.display = "none";
+ 
+
+  abb.graph("showHashTableG");
+}
+
+
+
+function podcast(){
+  document.getElementById("PANTALLA-MUSICA").style.display = "none";
+  document.getElementById("PANTALLA-ARTISTAS").style.display = "none";
+  document.getElementById("Ordenar").style.display = "none";
+  document.getElementById("formulario").style.display = "none";
+  document.getElementById("PANTALLA-PLAYLIST").style.display = "none";
+  document.getElementById("Botones-playlist").style.display = "none";
+  document.getElementById("showSimpleListG1").style.display = "none";
+  document.getElementById("showSimpleListG2").style.display = "none";
+  document.getElementById("PANTALLA-USUARIOS").style.display = "none";
+  document.getElementById("PANTALLA-AMIGOS").style.display = "none";
+  document.getElementById("grafoamigos").style.display = "none";
+  document.getElementById("PANTALLA-BLOQUEADOS").style.display = "none";
+  document.getElementById("Mostrar-bloqueados").style.display = "none";
+  document.getElementById("mostrar-calendar").style.display = "none";
+  document.getElementById("PANTALLA-PODCAST").style.display = "block";
+  abb.preordenCard("#pre")
 }

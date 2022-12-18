@@ -269,6 +269,7 @@ input {
   overflow: auto;
   display: none;
 }
+
 /* DIVS */
 
 #LOGIN-1 {
@@ -620,6 +621,21 @@ ESTILOS PANTALLA AMIGOS
 
 
 }
+#PANTALLA-PODCAST > #spanACD1{
+  margin-top: 10px;
+  border: #2d2f36;
+  border-style: solid;
+
+
+ 
+  float:left;
+ 
+  display:flex;
+
+
+  flex-direction:row;
+
+}
 #PANTALLA-MUSICA  {
   border: #2d2f36;
   border-style: solid;
@@ -669,10 +685,19 @@ ESTILOS PANTALLA AMIGOS
 }
 
 #mostrar-calendar{
-  display:none;
+
+  border: #2d2f36;
   border-style: solid;
-  margin-top:10px;
-  color:#2d2f36
+  float:left;
+
+  
+  margin-right: 20px;
+  margin-top:30px;
+}
+
+#mostrar-calendar > #submit1{
+  margin-right: 10px;
+  margin-left:10px;
 }
 
 #mostrar-calendar > label{
@@ -696,4 +721,30 @@ ESTILOS PANTALLA AMIGOS
  
 
 
+}
+#month1{
+  margin-left:35px;
+  margin-bottom: 10px;
+}
+
+#day1{
+  margin-left:35px;
+  margin-bottom: 10px;
+}
+
+
+#pre{
+
+  display: none;
+  width: 70rem;
+  margin-left: 30rem;
+  margin-top: 2rem;
+
+
+
+}
+
+#cardsActorsUser{
+
+   float:left;
 }
