@@ -299,6 +299,23 @@
       <button id="botoneliminar" class="btn btn-danger" onclick="DESBLOQUEAR()">DESBLOQUEAR</button>
     </div>
 
+    <div id="agregar-podcast">
+
+      <fieldset>
+        <label for="User-name" id="name-cancion1">Nombre<input id="name-podcast" type="text"
+            placeholder="Escribe el nombre de la cancion" required /></label>
+        <label for="User-nombre" id="name-albun1">Duracion<input id="name-duracion33" type="text"
+            placeholder="Escribe el nombre del album" /></label>
+        <label for="User-dpi" id="name-duracion1">Topic<input id="name-topic" type="number"
+            placeholder="Duracion de la Cancion" /></label>
+        <label for="User-TELEFONO" id="name-genero1">Guests<input id="name-Guests" type="text"
+            placeholder="Genero de la cancion" /></label>
+            <button href="#" type="button" id="submit1" onclick="agregarpodcast()">AGREGAR</button>
+      </fieldset>
+    </div>
+    <div id="showHashTableG1" style="background-color: #D3D3D3;">
+
+    </div>
 
     <div id="PANTALLA-PODCAST">
 
@@ -409,20 +426,6 @@
     </div>
     <br>
     <br>
-
-
-    <div id="downloadGraphs">
-
-      <button type="button" class="btn btn-dark" id="graphPeliculas" onclick="downloadMovies()">Descargar grafo
-        Usuarios</button>
-      <button type="button" class="btn btn-dark" id="graphClientes" onclick="downloadCustomers()">Descargar grafo
-        Artistas y Canciones</button>
-      <button type="button" class="btn btn-dark" id="graphActores" onclick="downloadActors()">Descargar grafo
-        Musica</button>
-      <button type="button" class="btn btn-dark" id="graphCategorias" onclick="downloadCategories()">Descargar grafo
-        Podcast</button>
-
-    </div>
 
   </div>
   <script src="//d3js.org/d3.v5.min.js"></script>

@@ -430,7 +430,7 @@ class BSTree{
   graph(idDiv){
 
       this.graphviz = '';
-      this.graphviz = ' digraph SimpleList{\nnode[shape= record, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.0;\nnodesep = 0.0;\nsubgraph cluster_A{\nlabel = "PODCAST";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 100;\n\n ';
+      this.graphviz = ' digraph SimpleList{\nnode[shape= record, fillcolor="#FFFFFF", style= filled];\nbgcolor = "#CD1CED ";\nranksep = 0.5;\nnodesep = 0.5;\nsubgraph cluster_A{\nlabel = "PODCAST";\nbgcolor = "#BC70FC";\nfontcolor ="#3A0964";\nfontsize = 100;\n\n ';
 
       this.preordenGraph();
 
@@ -551,13 +551,9 @@ class BSTree{
       if(node != null){
 
           //
-          let i = 1;
-          var newDiv = document.createElement("div");
-        newDiv.id = "spanACD" + (i) ;
-        var respuesta = document.getElementById("PANTALLA-PODCAST");
-        respuesta.appendChild(newDiv);
-        let doc = document.getElementById("spanACD" + (i));
-        doc.innerHTML +=`
+         
+         
+        doc44.innerHTML +=`
 
         <div class="card"  id="artis2">
         <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/1312/1312585.png">
@@ -2825,7 +2821,7 @@ function signoff2(){
   document.getElementById("PANTALLA-BLOQUEADOS").style.display = "none";
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
-  
+  document.getElementById("showHashTableG1").style.display = "none";
   
 
 }
@@ -3030,7 +3026,7 @@ function musica(){
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "block";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
-
+  document.getElementById("showHashTableG1").style.display = "none";
 
   artistas.print_canciones();
 
@@ -3051,7 +3047,7 @@ function artista(){
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
-
+  document.getElementById("showHashTableG1").style.display = "none";
   artistas.printartistas();
   
   artistas.graph("showSimpleListG1");
@@ -3105,6 +3101,7 @@ function playlist(){
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
+  document.getElementById("showHashTableG1").style.display = "none";
 
   
   playlist1.print();
@@ -3138,6 +3135,7 @@ function amigos(){
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
+  document.getElementById("showHashTableG1").style.display = "none";
 
 
   
@@ -3163,6 +3161,7 @@ function bloqueados(){
   document.getElementById("grafoamigos").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
+  document.getElementById("showHashTableG1").style.display = "none";
   colabloqueados.print();
   colabloqueados.graph("showSimpleListG5");
 }
@@ -3250,5 +3249,37 @@ function podcast(){
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "block";
+  document.getElementById("showHashTableG1").style.display = "block";
+  abb.graph("showHashTableG1");
   abb.preordenCard("#pre")
 }
+
+function agregarpodcast(){
+  let name = document.getElementById("name-podcast").value;
+  let duration = document.getElementById("name-duracion33").value;
+  let topic = document.getElementById("name-topic").value;
+  let Guests = document.getElementById("name-Guests").value;
+  let obj = null
+  obj ={
+    name: name,
+    topic: topic,
+    duration: duration,
+    guests: Guests
+  };
+
+ 
+  
+  abb.add(obj)
+  abb.graph("showHashTableG1");
+  abb.preordenCard("#pre")
+ document.getElementById("name-podcast").value = "";
+  document.getElementById("name-duracion33").value =" ";
+document.getElementById("name-topic").value ="";
+ document.getElementById("name-Guests").value ="";
+}
+
+var newDiv33 = document.createElement("div");
+newDiv33.id = "spanACD1";
+var respuesta = document.getElementById("PANTALLA-PODCAST");
+respuesta.appendChild(newDiv33);
+let doc44 = document.getElementById("spanACD1");
