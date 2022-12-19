@@ -748,6 +748,7 @@ ESTILOS PANTALLA AMIGOS
   width: 70rem;
   margin-left: 30rem;
   margin-top: 2rem;
+  
 
 
 
@@ -760,6 +761,12 @@ ESTILOS PANTALLA AMIGOS
 
 
 #agregar-podcast{
-  margin: 20px;
+
   position: absolute;
+  display:none;
+  margin:20px 30px 10px;
+}
+
+#submit1{
+  margin-left:20px;
 }

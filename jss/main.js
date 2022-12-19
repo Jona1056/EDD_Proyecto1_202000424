@@ -2822,6 +2822,7 @@ function signoff2(){
   document.getElementById("Mostrar-bloqueados").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
   document.getElementById("showHashTableG1").style.display = "none";
+  document.getElementById("agregar-podcast").style.display = "none";
   
 
 }
@@ -3027,6 +3028,7 @@ function musica(){
   document.getElementById("mostrar-calendar").style.display = "block";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
   document.getElementById("showHashTableG1").style.display = "none";
+  document.getElementById("agregar-podcast").style.display = "none";
 
   artistas.print_canciones();
 
@@ -3048,6 +3050,7 @@ function artista(){
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
   document.getElementById("showHashTableG1").style.display = "none";
+  document.getElementById("agregar-podcast").style.display = "none";
   artistas.printartistas();
   
   artistas.graph("showSimpleListG1");
@@ -3162,6 +3165,7 @@ function bloqueados(){
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "none";
   document.getElementById("showHashTableG1").style.display = "none";
+  document.getElementById("agregar-podcast").style.display = "none";
   colabloqueados.print();
   colabloqueados.graph("showSimpleListG5");
 }
@@ -3250,6 +3254,7 @@ function podcast(){
   document.getElementById("mostrar-calendar").style.display = "none";
   document.getElementById("PANTALLA-PODCAST").style.display = "block";
   document.getElementById("showHashTableG1").style.display = "block";
+  document.getElementById("agregar-podcast").style.display = "block";
   abb.graph("showHashTableG1");
   abb.preordenCard("#pre")
 }
@@ -3270,8 +3275,9 @@ function agregarpodcast(){
  
   
   abb.add(obj)
-  abb.graph("showHashTableG1");
+
   abb.preordenCard("#pre")
+  abb.graph("showHashTableG1");
  document.getElementById("name-podcast").value = "";
   document.getElementById("name-duracion33").value =" ";
 document.getElementById("name-topic").value ="";
