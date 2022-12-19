@@ -763,10 +763,14 @@ ESTILOS PANTALLA AMIGOS
 #agregar-podcast{
 
   position: absolute;
-  display:none;
+
   margin:20px 30px 10px;
 }
 
 #submit1{
   margin-left:20px;
+}
+
+#agregar-podcast{
+  display:none;
 }
