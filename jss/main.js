@@ -326,7 +326,7 @@ class arbolbinario{
 
       }else{
 
-          console.log('Se enconstro un elemento igual al que se quiere insetar, insercción fallida.')
+        console.log("true")
       }
   }
 
@@ -358,7 +358,7 @@ class arbolbinario{
 
       if(this.root == null){
 
-          console.log('No se ha insertado nada en el BSTree.');
+          console.log('vacio');
       }else{
 
           this._preordenGraph(this.root);
@@ -396,7 +396,7 @@ class arbolbinario{
 
       if(this.root == null){
 
-          console.log('No se ha insertado nada en el BSTree.');
+          console.log('vacio.');
       }else{
 
           this._preordenCard(this.root, idDiv);
@@ -446,6 +446,8 @@ function reproducirmusica(){
       getOAuthToken: cb => { cb(token); }
     });
   }
+
+  <iframe src="https://open.spotify.com/embed?uri=spotify:album:XXXXXXXXXXXX" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 }
 
 
