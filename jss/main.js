@@ -234,7 +234,7 @@ class listaenlazada {
 //ARBOL BINARIO CODIGO
 
 
-class BSTreeNode{
+class ArbolB{
 
   constructor(data){
 
@@ -290,7 +290,7 @@ class BSTree{
 
       if(this.root == null){
 
-          let newNode = new BSTreeNode(data);
+          let newNode = new ArbolB(data);
           this.root = newNode;
       }else{
 
@@ -305,7 +305,7 @@ class BSTree{
       if(data.name < node.getData().name){
 
           if(node.getLeft() == null){
-              let newNode =  new BSTreeNode(data);
+              let newNode =  new ArbolB(data);
               node.setLeft(newNode);
 
           }else{
@@ -330,102 +330,7 @@ class BSTree{
       }
   }
 
-  //Tours
-
-  //Inorden
-  inorden(){
-
-      if(this.root == null){
-
-          console.log('No se ha insertado nada en el BSTree.');
-      }else{
-
-          this._inorden(this.root);
-      }
-  }
-
-  _inorden(node){
-
-      if(node != null){
-
-          this._inorden(node.getLeft());
-          console.log(node.getData() + ' ');
-          this._inorden(node.getRight());
-      }
-
-  }
-
-  inordenR(){
-
-      if(this.root == null){
-
-          console.log('No se ha insertado nada en el BSTree.');
-      }else{
-
-          this._inordenR(this.root);
-      }
-  }
-
-  _inordenR(node){
-
-      if(node != null){
-
-          this._inordenR(node.getRight());
-          console.log(node.getData() + ' ');
-          this._inordenR(node.getLeft());
-      }
-
-  }
-
-  //Preorden
-  preorden(){
-
-      if(this.root == null){
-
-          console.log('No se ha insertado nada en el BSTree.');
-      }else{
-
-          this._preorden(this.root);
-      }
-  }
-
-  _preorden(node){
-
-      if(node != null){
-
-          console.log(node.getData() + ' ');
-          this._preorden(node.getLeft());
-          this._preorden(node.getRight());
-      }
-
-
-  }
-
-  //PostOrden
-  postorden(){
-
-      if(this.root == null){
-
-          console.log('No se ha insertado nada en el BSTree.');
-      }else{
-
-          this._postorden(this.root);
-      }
-  }
-
-  _postorden(node){
-
-      if(node != null){
-
-          this._postorden(node.getLeft());
-          this._postorden(node.getRight());
-          console.log(node.getData() + ' ');
-          
-      }
-
-
-  }
-
+ 
   //Graphviz
   graph(idDiv){
 
@@ -486,54 +391,6 @@ class BSTree{
   //Cards
 
   //Inorden
-  inordenCard(idDiv){
-
-      if(this.root == null){
-
-          console.log('No se ha insertado nada en el BSTree.');
-      }else{
-
-          this._inordenCard(this.root, idDiv);
-      }
-  }
-
-  _inordenCard(node, idDiv){
-
-      if(node != null){
-
-          this._inordenCard(node.getLeft(), idDiv);
-
-          //
-          
-          let card = document.querySelector(idDiv);
-          
-
-          let newDiv = document.createElement("div");
-          card.innerHTML += `
-          <div class="card" id="cardsActorsUser">
-              <div class="card-body">
-
-                  <div id="movieName">
-                      <img src="https://cdn-icons-png.flaticon.com/512/475/475283.png" id="imageP">
-                      <h4>${node.getData().nombre_actor}</h4>
-
-                  </div>  
-
-                  <div id="description">
-                      <h5 class="card-title">Descripción</h5>
-                      <p class="card-text">${node.getData().descripcion}</p>
-
-                  </div>
-              </div>
-          </div>`;
-
-          //
-
-          this._inordenCard(node.getRight(), idDiv);
-      }
-
-  }
-
   //Preorden
   preordenCard(idDiv){
 
@@ -577,55 +434,20 @@ class BSTree{
 
   }
 
-  //PostOrden
-  postordenCard(idDiv){
+ 
+ 
+}
 
-      if(this.root == null){
-
-          console.log('No se ha insertado nada en el BSTree.');
-      }else{
-
-          this._postordenCard(this.root, idDiv);
-      }
-  }
-
-  _postordenCard(node, idDiv){
-
-      if(node != null){
-
-          this._postordenCard(node.getLeft(), idDiv);
-          this._postordenCard(node.getRight(), idDiv);
-          //
-          
-          let card = document.querySelector(idDiv);
-          
-
-          let newDiv = document.createElement("div");
-          card.innerHTML += `
-          <div class="card" id="cardsActorsUser">
-              <div class="card-body">
-
-                  <div id="movieName">
-                      <img src="https://cdn-icons-png.flaticon.com/512/475/475283.png" id="imageP">
-                      <h4>${node.getData().nombre_actor}</h4>
-
-                  </div>  
-
-                  <div id="description">
-                      <h5 class="card-title">Descripción</h5>
-                      <p class="card-text">${node.getData().descripcion}</p>
-
-                  </div>
-              </div>
-          </div>`;
-
-          //
-          
-      }
-
-
+function reproducirmusica(){
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = '[My Spotify Web API access token]';
+    const player = new Spotify.Player({
+      name: 'Web Playback SDK Quick Start Player',
+      getOAuthToken: cb => { cb(token); }
+    });
   }
 }
+
 
 
 
