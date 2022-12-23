@@ -276,7 +276,7 @@ class ArbolB{
       this.right = right;
   }
 }
-class BSTree{
+class arbolbinario{
 
   constructor(){
 
@@ -2554,7 +2554,7 @@ let playlist1 = new listadobleplaylist();
 let listaamigos1 = new listaamigos();
 let colabloqueados = new listabloqueados();
 const matrizDispersa = new Matriz();
-var abb = new BSTree();
+var abb = new arbolbinario();
 
 // let canciones = new listadobleplaylist();
 // ---------------------------------------------------------------
